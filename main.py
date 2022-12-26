@@ -10,7 +10,7 @@ st.set_page_config(layout="wide")
 
 tab1, tab2, tab3 = st.tabs(["Frequency Slider", "Frequency From Filter", "About"])
 
-df = pd.read_csv('C:\\Users\\uran_\\frequency.csv')
+df = pd.read_csv('frequency.csv')
 
 with tab1:
     st.header("Frequency allocation based on slider")
@@ -23,10 +23,13 @@ with tab1:
     selectedRows = df[(df["Lower Frequency"] >= start_clr) & (df["Higher Frequency"] <= end_clr)]
     st.write("You have selected ", len(selectedRows), " rows")
     st.write(selectedRows)
+    st.bar_chart(data=selectedRows, x='Lower Frequency', y='Field', width=0, height=0, use_container_width=True)
+
 
 with tab2:
     st.header("Frequency allocation based on filter")
     location = df['Location'].unique()
+    field=df['Field'].unique()
 
     translator = Translator()
 
@@ -137,6 +140,10 @@ with tab2:
         dataset['Field'] = dataset['Field'].apply(translator.translate, dest=lang).apply(getattr, args=('text',))
         dataset['Status'] = dataset['Status'].apply(translator.translate, dest=lang).apply(getattr, args=('text',))
         st.write(dataset)
+
+        
+
+        st.bar_chart(data=dataset, x='Lower Frequency', y='Field', width=0, height=0, use_container_width=True)
 
 with tab3:
    st.header("An owl")
