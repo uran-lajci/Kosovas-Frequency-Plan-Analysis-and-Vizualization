@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import plotly.express as px
 import time
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -13,6 +14,8 @@ tab1, tab2, tab3 = st.tabs(["Frequency Slider", "Frequency From Filter", "About"
 df = pd.read_csv('frequency.csv')
 
 with tab1:
+    
+
     st.header("Frequency allocation based on slider")
     lower= df["Lower Frequency"].min()
     higher= df["Lower Frequency"].max()
@@ -22,8 +25,28 @@ with tab1:
 
     selectedRows = df[(df["Lower Frequency"] >= start_clr) & (df["Higher Frequency"] <= end_clr)]
     st.write("You have selected ", len(selectedRows), " rows")
-    st.write(selectedRows)
-    st.bar_chart(data=selectedRows, x='Lower Frequency', y='Field', width=0, height=0, use_container_width=True)
+    tab4, tab5,tab6= st.tabs(["table","bar", "plot"])
+    with tab4:
+        st.write(selectedRows)
+#    field=df['Field'].unique()
+
+    with tab5:
+        st.bar_chart(data=selectedRows, x='Lower Frequency', y='Field', width=0, height=0, use_container_width=True)
+
+    with tab6:
+        fig = px.scatter(
+            selectedRows,
+            x="Lower Frequency",
+            y="Field",
+            size="Lower Frequency",
+            color="Location",
+            hover_name="Location",
+            log_x=True,
+            size_max=60,
+        )
+
+        st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
 
 
 with tab2:
@@ -143,7 +166,19 @@ with tab2:
 
         
 
-        st.bar_chart(data=dataset, x='Lower Frequency', y='Field', width=0, height=0, use_container_width=True)
+        # st.bar_chart(data=dataset, x='Lower Frequency', y='Field', width=0, height=0, use_container_width=True)
+
+        # fig = px.scatter(
+        #     dataset,
+        #     x="Lower Frequency",
+        #     y="Field",
+        #     size="Lower Frequency",
+        #     color="Location",
+        #     hover_name="Location",
+        #     log_x=True,
+        #     size_max=60,
+        # )
+        # st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 with tab3:
    st.header("An owl")
