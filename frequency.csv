@@ -1,0 +1,300 @@
+Location,Lower Frequency,Higher Frequency,Language,Type,Field,Status
+Albania,3000000,30000000,Albania,Application,Meteorological Aids,Primary
+Austria,3000100,29000000,Austria,Alocation,Radionavigation,Secondary
+Belgium,30000000,300000000,Belgium,Application,Maritime Mobile,Primary
+France,30000000,300000000,France,Alocation,Standard Frequency and Time Signal,Secondary
+Croatia,3000000,30000000,Croatia,Application,Radionavigation,Secondary
+Germany,3000100,29000000,Germany,Alocation,Maritime Mobile,Primary
+Greece,3000000,30000000,Greece,Alocation,Amateur,Secondary
+Albania,3000100,29000000,Albania,Application,Fixed,Secondary
+Belgium,30000000,300000000,Belgium,Alocation,Maritime Radionavigation (radiobeacons),Primary
+Austria,3000000,30000000,Austria,Alocation,Aeronautical Radionavigation,Primary
+France,30000000,300000000,France,Application,Maritime Mobile,Primary
+Portugal,3000000,30000000,Portugal,Alocation,Meteorological Aids,Secondary
+Germany,3000100,29000000,Germany,Alocation,Radionavigation,Primary
+Croatia,30000000,300000000,Croatia,Application,Maritime Mobile,Secondary
+Albania,30000000,300000000,Albania,Alocation,Standard Frequency and Time Signal,Secondary
+Austria,3000000,30000000,Austria,Alocation,Radionavigation,Primary
+Belgium,3000100,29000000,Belgium,Application,Maritime Mobile,Secondary
+France,30000000,300000000,France,Alocation,Amateur,Secondary
+Croatia,3000100,29000000,Croatia,Alocation,Fixed,Primary
+Germany,3000000,30000000,Germany,Application,Maritime Radionavigation (radiobeacons),Primary
+Greece,30000000,300000000,Greece,Alocation,Radionavigation,Primary
+Albania,3000100,29000000,Albania,Alocation,Maritime Mobile,Secondary
+Belgium,3000000,30000000,Belgium,Application,Amateur,Primary
+Austria,30000000,300000000,Austria,Alocation,Fixed,Secondary
+France,3000100,29000000,France,Alocation,Maritime Radionavigation (radiobeacons),Secondary
+Portugal,30000000,300000000,Portugal,Application,Aeronautical Radionavigation,Primary
+Germany,3000000,30000000,Germany,Application,Maritime Mobile,Secondary
+Croatia,30000000,300000000,Croatia,Application,Meteorological Aids,Secondary
+Albania,3000100,29000000,Albania,Alocation,Radionavigation,Primary
+Austria,30000000,300000000,Austria,Application,Maritime Mobile,Primary
+Belgium,3000000,30000000,Belgium,Application,Standard Frequency and Time Signal,Primary
+France,30000000,300000000,France,Application,Radionavigation,Secondary
+Croatia,30000000,300000000,Croatia,Application,Maritime Mobile,Primary
+Germany,30000000,300000000,Germany,Application,Amateur,Secondary
+Greece,3000000,30000000,Greece,Application,Fixed,Secondary
+Albania,30000000,300000000,Albania,Alocation,Maritime Radionavigation (radiobeacons),Primary
+Belgium,30000000,300000000,Belgium,Application,Radionavigation,Secondary
+Austria,31000000,290000000,Austria,Alocation,Maritime Mobile,Secondary
+France,3000000,30000000,France,Application,Amateur,Primary
+Portugal,31000000,290000000,Portugal,Alocation,Fixed,Primary
+Germany,31000000,290000000,Germany,Alocation,Maritime Radionavigation (radiobeacons),Primary
+Croatia,31000000,290000000,Croatia,Application,Aeronautical Radionavigation,Secondary
+Albania,31000000,290000000,Albania,Alocation,Maritime Mobile,Primary
+Austria,31000000,290000000,Austria,Alocation,Meteorological Aids,Secondary
+Belgium,3000000,30000000,Belgium,Application,Radionavigation,Secondary
+France,31000000,290000000,France,Alocation,Maritime Mobile,Primary
+Croatia,31000000,290000000,Croatia,Alocation,Standard Frequency and Time Signal,Secondary
+Germany,31000000,290000000,Germany,Application,Radionavigation,Secondary
+Greece,31000000,290000000,Greece,Alocation,Maritime Mobile,Primary
+Albania,3000000,30000000,Albania,Alocation,Amateur,Primary
+Belgium,31000000,290000000,Belgium,Application,Fixed,Primary
+Austria,3000,30000,Austria,Alocation,Mobile,Secondary
+France,30000,300000,France,Alocation,Radio Astronomy,Primary
+Portugal,30000,300000,Portugal,Application,Radiolocation,Secondary
+Germany,3000000,30000000,Germany,Alocation,Fixed,Secondary
+Croatia,3000,30000,Croatia,Alocation,Space Research,Primary
+Austria,30000,300000,Austria,Application,Aeronautical Radionavigation,Secondary
+Austria,30000,300000,Austria,Alocation,Land Mobile,Secondary
+Austria,30000,300000,Austria,Alocation,Aeronautical Mobile (R),Primary
+Austria,3000000,30000000,Austria,Application,Fixed,Primary
+Austria,3000,30000,Austria,Application,Aeronautical Mobile (R),Primary
+Albania,30000,300000,Albania,Application,Aeronautical Radionavigation,Secondary
+Austria,30000,300000,Austria,Alocation,Space Research,Primary
+Belgium,3,30,Belgium,Application,Earth Exploration-Satellite (passive),Secondary
+France,3000000,30000000,France,Application,Fixed,Secondary
+Croatia,3000,30000,Croatia,Application,Fixed,Primary
+Germany,3,30,Germany,Application,Fixed,Secondary
+Greece,3,30,Greece,Application,Earth Exploration-Satellite (passive),Secondary
+Albania,3000,30000,Albania,Application,Land Mobile,Primary
+Belgium,3000000,30000000,Belgium,Alocation,Amateur,Primary
+Austria,3,30,Austria,Application,Earth Exploration-Satellite (passive),Primary
+France,3000,30000,France,Alocation,Land Mobile,Secondary
+Albania,4,29,Albania,Application,Earth Exploration-Satellite (passive),Primary
+Austria,3000,30000,Austria,Alocation,Land Mobile,Secondary
+Belgium,3000000,30000000,Belgium,Alocation,Amateur,Secondary
+France,3000,30000,France,Application,Land Mobile,Primary
+Croatia,4,29,Croatia,Alocation,Earth Exploration-Satellite (passive),Secondary
+Germany,3000,30000,Germany,Alocation,Land Mobile,Secondary
+Greece,3000000,30000000,Greece,Application,Amateur,Primary
+Albania,3000100,29000000,Albania,Alocation,Amateur,Primary
+Belgium,3000,30000,Belgium,Alocation,Land Mobile,Primary
+Austria,4,29,Austria,Application,Space Research (passive),Secondary
+France,3000000,30000000,France,Alocation,Amateur,Primary
+Albania,3000100,29000000,Albania,Alocation,Amateur,Secondary
+Austria,3000,30000,Austria,Application,Land Mobile,Secondary
+Belgium,4,29,Belgium,Alocation,Space Research (passive),Primary
+France,3000000,30000000,France,Alocation,Maritime Mobile,Secondary
+Croatia,3000100,29000000,Croatia,Application,Maritime Mobile,Secondary
+Germany,4,29,Germany,Alocation,Space Research (passive),Primary
+Greece,3000,30000,Greece,Alocation,Land Mobile,Primary
+Albania,3000000,30000000,Albania,Application,Maritime Mobile,Primary
+Belgium,4,29,Belgium,Alocation,Space Research (passive),Secondary
+Austria,3000,30000,Austria,Alocation,Land Mobile,Primary
+France,4,29,France,Application,Maritime Mobile,Secondary
+Albania,3000000,30000000,Albania,Application,Maritime Mobile,Secondary
+Austria,3000,30000,Austria,Application,Land Mobile,Primary
+Belgium,3000100,29000000,Belgium,Alocation,Maritime Mobile,Secondary
+France,3000,30000,France,Application,Land Mobile,Secondary
+Croatia,3000000,30000000,Croatia,Application,Maritime Mobile,Primary
+Germany,3000100,29000000,Germany,Application,Maritime Mobile,Primary
+Greece,4,29,Greece,Application,Space Research (passive),Primary
+Albania,3000,30000,Albania,Application,Aeronautical Mobile (R),Secondary
+Belgium,3000000,30000000,Belgium,Application,Maritime Radionavigation (radiobeacons),Primary
+Austria,4,29,Austria,Alocation,Earth Exploration-Satellite (passive),Secondary
+France,3000,30000,France,Application,Aeronautical Mobile (R),Secondary
+Albania,4,29,Albania,Alocation,Earth Exploration-Satellite (passive),Primary
+Austria,4,29,Austria,Application,Earth Exploration-Satellite (passive),Secondary
+Belgium,4,29,Belgium,Alocation,Earth Exploration-Satellite (passive),Secondary
+France,3000,30000,France,Alocation,Aeronautical Mobile (R),Primary
+Croatia,4,29,Croatia,Application,Earth Exploration-Satellite (passive),Primary
+Germany,3000,30000,Germany,Alocation,Earth Exploration-Satellite (passive),Primary
+Greece,4,29,Greece,Alocation,Earth Exploration-Satellite (passive),Secondary
+Albania,3000000,30000000,Albania,Application,Maritime Radionavigation (radiobeacons),Primary
+Belgium,3000100,29000000,Belgium,Alocation,Maritime Radionavigation (radiobeacons),Secondary
+Austria,3000,30000,Austria,Alocation,Aeronautical Mobile (R),Secondary
+France,35,275,France,Application,Earth Exploration-Satellite (passive),Primary
+Portugal,3000000,30000000,Portugal,Alocation,Maritime Radionavigation (radiobeacons),Secondary
+Germany,3000100,29000000,Germany,Alocation,Maritime Radionavigation (radiobeacons),Secondary
+Croatia,3000,30000,Croatia,Application,Aeronautical Mobile (R),Primary
+Albania,3000000,30000000,Albania,Alocation,Maritime Radionavigation (radiobeacons),Primary
+Austria,3000,30000,Austria,Alocation,Aeronautical Mobile (R),Primary
+Belgium,3000100,29000000,Belgium,Application,Maritime Radionavigation (radiobeacons),Secondary
+France,3000,30000,France,Alocation,Aeronautical Mobile (R),Primary
+Croatia,3000000,30000000,Croatia,Alocation,Maritime Radionavigation (radiobeacons),Secondary
+Germany,35,275,Germany,Application,Earth Exploration-Satellite (passive),Secondary
+Greece,3000,30000,Greece,Alocation,Aeronautical Mobile (R),Primary
+Albania,3000100,29000000,Albania,Alocation,Maritime Radionavigation (radiobeacons),Secondary
+Belgium,35,275,Belgium,Application,Earth Exploration-Satellite (passive),Secondary
+Austria,4,29,Austria,Application,Earth Exploration-Satellite (passive),Primary
+France,3000000,30000000,France,Application,Maritime Radionavigation (radiobeacons),Primary
+Portugal,3000100,29000000,Portugal,Alocation,Maritime Radionavigation (radiobeacons),Primary
+Germany,3000,30000,Germany,Application,Aeronautical Mobile (R),Secondary
+Croatia,35,275,Croatia,Application,Earth Exploration-Satellite (passive),Primary
+Albania,35,275,Albania,Application,Earth Exploration-Satellite (passive),Secondary
+Austria,3000,30000,Austria,Application,Aeronautical Mobile (R),Secondary
+Belgium,3000000,30000000,Belgium,Application,Maritime Radionavigation (radiobeacons),Primary
+France,35,275,France,Application,Mobile-Satellite (Earth-to-space),Secondary
+Croatia,4,29,Croatia,Alocation,Mobile-Satellite (Earth-to-space),Secondary
+Germany,4,29,Germany,Application,Mobile-Satellite (Earth-to-space),Primary
+Greece,4,29,Greece,Alocation,Mobile-Satellite (Earth-to-space),Primary
+Albania,35,275,Albania,Application,Mobile-Satellite (Earth-to-space),Primary
+Belgium,3000100,29000000,Belgium,Alocation,Maritime Radionavigation (radiobeacons),Secondary
+Austria,3000,30000,Austria,Alocation,Aeronautical Radionavigation,Primary
+France,4,29,France,Application,Mobile-Satellite (Earth-to-space),Secondary
+Portugal,3000,30000,Portugal,Alocation,Aeronautical Radionavigation,Secondary
+Germany,4,29,Germany,Alocation,Mobile-Satellite (Earth-to-space),Primary
+Croatia,3000,30000,Croatia,Application,Aeronautical Radionavigation,Secondary
+Albania,4,29,Albania,Alocation,Mobile-Satellite (Earth-to-space),Secondary
+Austria,3000,30000,Austria,Alocation,Aeronautical Radionavigation,Primary
+Belgium,4,29,Belgium,Application,Mobile-Satellite (Earth-to-space),Primary
+France,3000,30000,France,Alocation,Aeronautical Radionavigation,Primary
+Croatia,3000,30000,Croatia,Alocation,Aeronautical Radionavigation,Secondary
+Germany,4,29,Germany,Application,Mobile-Satellite (Earth-to-space),Primary
+Greece,3000100,29000000,Greece,Alocation,Maritime Radionavigation (radiobeacons),Secondary
+Albania,3000100,29000000,Albania,Alocation,Maritime Radionavigation (radiobeacons),Secondary
+Belgium,4,29,Belgium,Application,Mobile-Satellite (Earth-to-space),Primary
+Austria,3000,30000,Austria,Alocation,Aeronautical Radionavigation,Secondary
+France,35,275,France,Alocation,Mobile-Satellite (Earth-to-space),Secondary
+Portugal,35,275,Portugal,Application,Mobile-Satellite (Earth-to-space),Primary
+Germany,3000,30000,Germany,Alocation,Aeronautical Radionavigation,Primary
+Croatia,4,29,Croatia,Alocation,Mobile-Satellite (Earth-to-space),Primary
+Austria,3100,29000,Austria,Application,Space Research,Secondary
+Austria,4,29,Austria,Application,Mobile-Satellite (Earth-to-space),Primary
+Austria,3100,29000,Austria,Application,Aeronautical Radionavigation,Secondary
+Austria,3000100,29000000,Austria,Alocation,Maritime Radionavigation (radiobeacons),Secondary
+Austria,3000100,29000000,Austria,Application,Maritime Radionavigation (radiobeacons),Primary
+Albania,3100,29000,Albania,Application,Aeronautical Radionavigation,Secondary
+Austria,30000,300000,Austria,Application,Meteorological Aids,Secondary
+Belgium,30000,300000,Belgium,Application,Meteorological Aids,Primary
+France,4,29,France,Application,Earth Exploration-Satellite (passive),Primary
+Croatia,3100,29000,Croatia,Application,Aeronautical Mobile (R),Primary
+Germany,30000,300000,Germany,Alocation,Meteorological Aids,Secondary
+Greece,4,29,Greece,Application,Earth Exploration-Satellite (passive),Primary
+Albania,3100,29000,Albania,Alocation,Aeronautical Mobile (R),Secondary
+Belgium,30000,300000,Belgium,Application,Meteorological Aids,Secondary
+Austria,4,29,Austria,Alocation,Earth Exploration-Satellite (passive),Primary
+France,3100,29000,France,Alocation,Aeronautical Mobile (R),Secondary
+Albania,3000000,30000000,Albania,Application,Meteorological Aids,Secondary
+Austria,3100,29000,Austria,Alocation,Aeronautical Mobile (R),Primary
+Belgium,3000100,29000000,Belgium,Alocation,Meteorological Aids,Primary
+France,30000,300000,France,Application,Aeronautical Mobile (R),Primary
+Croatia,4,29,Croatia,Alocation,Earth Exploration-Satellite (passive),Secondary
+Germany,3000000,30000000,Germany,Alocation,Meteorological Aids,Primary
+Greece,3000100,29000000,Greece,Application,Meteorological Aids,Secondary
+Albania,35,275,Albania,Alocation,Earth Exploration-Satellite (passive),Secondary
+Belgium,35,275,Belgium,Alocation,Earth Exploration-Satellite (passive),Primary
+Austria,3100,29000,Austria,Application,Aeronautical Mobile (R),Secondary
+France,30000,300000,France,Alocation,Meteorological Aids,Secondary
+Albania,3100,29000,Albania,Alocation,Aeronautical Mobile (R),Primary
+Austria,30000,300000,Austria,Application,Meteorological Aids,Primary
+Belgium,3100,29000,Belgium,Alocation,Aeronautical Mobile (R),Primary
+France,35,275,France,Alocation,Earth Exploration-Satellite (passive),Secondary
+Croatia,35,275,Croatia,Application,Earth Exploration-Satellite (passive),Primary
+Germany,3000000,30000000,Germany,Alocation,Meteorological Aids,Secondary
+Greece,3100,29000,Greece,Alocation,Aeronautical Mobile (R),Secondary
+Albania,3000100,29000000,Albania,Application,Meteorological Aids,Primary
+Belgium,3100,29000,Belgium,Application,Aeronautical Mobile (R),Secondary
+Austria,35,275,Austria,Application,Earth Exploration-Satellite (passive),Secondary
+France,35,275,France,Alocation,Earth Exploration-Satellite (passive),Primary
+Albania,3100,29000,Albania,Application,Aeronautical Mobile (R),Primary
+Austria,35,275,Austria,Application,Earth Exploration-Satellite (passive),Primary
+Belgium,35,275,Belgium,Application,Earth Exploration-Satellite (passive),Secondary
+France,3100,29000,France,Application,Land Mobile,Primary
+Croatia,35,275,Croatia,Application,Mobile-Satellite (Earth-to-space),Secondary
+Germany,35,275,Germany,Application,Mobile-Satellite (Earth-to-space),Secondary
+Greece,3100,29000,Greece,Alocation,Land Mobile,Primary
+Albania,35,275,Albania,Application,Mobile-Satellite (Earth-to-space),Secondary
+Belgium,3000100,29000000,Belgium,Alocation,Standard Frequency and Time Signal,Secondary
+Austria,3100,29000,Austria,Application,Land Mobile,Primary
+France,3000000,30000000,France,Alocation,Standard Frequency and Time Signal,Primary
+Albania,3100,29000,Albania,Alocation,Fixed,Primary
+Austria,3000100,29000000,Austria,Application,Standard Frequency and Time Signal,Secondary
+Belgium,3100,29000,Belgium,Alocation,Land Mobile,Primary
+France,35,275,France,Alocation,Mobile-Satellite (Earth-to-space),Secondary
+Croatia,35,275,Croatia,Application,Mobile-Satellite (Earth-to-space),Secondary
+Germany,35,275,Germany,Alocation,Mobile-Satellite (Earth-to-space),Primary
+Greece,3000100,29000000,Greece,Alocation,Standard Frequency and Time Signal,Secondary
+Albania,35,275,Albania,Application,Mobile-Satellite (Earth-to-space),Secondary
+Belgium,3100,29000,Belgium,Alocation,Fixed,Primary
+Austria,35,275,Austria,Alocation,Mobile-Satellite (Earth-to-space),Primary
+France,3100,29000,France,Application,Fixed,Primary
+Portugal,3000000,30000000,Portugal,Alocation,Standard Frequency and Time Signal,Secondary
+Germany,3100,29000,Germany,Alocation,Land Mobile,Primary
+Croatia,35,275,Croatia,Application,Mobile-Satellite (Earth-to-space),Secondary
+Albania,3000100,29000000,Albania,Alocation,Standard Frequency and Time Signal,Secondary
+Austria,35,275,Austria,Alocation,Mobile-Satellite (Earth-to-space),Primary
+Belgium,3100,29000,Belgium,Application,Land Mobile,Secondary
+France,31000000,290000000,France,Alocation,Standard Frequency and Time Signal,Secondary
+Croatia,3100,29000,Croatia,Alocation,Land Mobile,Primary
+Germany,31000000,290000000,Germany,Application,Standard Frequency and Time Signal,Primary
+Greece,35,275,Greece,Application,Mobile-Satellite (Earth-to-space),Primary
+Albania,3100,29000,Albania,Application,Land Mobile,Secondary
+Belgium,3100,29000,Belgium,Alocation,Land Mobile,Primary
+Austria,3000000,30000000,Austria,Application,Standard Frequency and Time Signal,Secondary
+France,35,275,France,Application,Mobile-Satellite (Earth-to-space),Secondary
+Portugal,35,275,Portugal,Application,Fixed,Primary
+Germany,3000100,29000000,Germany,Application,Standard Frequency and Time Signal,Secondary
+Croatia,35,275,Croatia,Application,Space Research (passive),Secondary
+Albania,35,275,Albania,Application,Space Research (passive),Primary
+Austria,31000000,290000000,Austria,Alocation,Aeronautical Radionavigation,Primary
+Belgium,35,275,Belgium,Application,Space Research (passive),Primary
+France,31000000,290000000,France,Alocation,Fixed,Secondary
+Croatia,31000000,290000000,Croatia,Application,Aeronautical Radionavigation,Primary
+Germany,35,275,Germany,Alocation,Space Research (passive),Secondary
+Greece,31000000,290000000,Greece,Alocation,Aeronautical Radionavigation,Secondary
+Albania,35,275,Albania,Application,Space Research (passive),Primary
+Belgium,31000000,290000000,Belgium,Alocation,Aeronautical Radionavigation,Secondary
+Austria,31000000,290000000,Austria,Alocation,Maritime Mobile,Secondary
+France,3000000,30000000,France,Application,Fixed,Primary
+Portugal,31000000,290000000,Portugal,Alocation,Standard Frequency and Time Signal,Primary
+Germany,3000100,29000000,Germany,Alocation,Fixed,Primary
+Croatia,35,275,Croatia,Application,Space Research (passive),Secondary
+Albania,31000000,290000000,Albania,Alocation,Aeronautical Radionavigation,Primary
+Austria,35,275,Austria,Alocation,Space Research (passive),Secondary
+Belgium,3100,29000,Belgium,Application,Radiolocation,Secondary
+France,35,275,France,Alocation,Space Research (passive),Primary
+Croatia,3100,29000,Croatia,Alocation,Radiolocation,Secondary
+Germany,35,275,Germany,Application,Space Research (passive),Secondary
+Greece,3100,29000,Greece,Alocation,Radiolocation,Primary
+Albania,31000000,290000000,Albania,Alocation,Aeronautical Radionavigation,Primary
+Belgium,3000000,30000000,Belgium,Application,Maritime Mobile,Primary
+Austria,35,275,Austria,Alocation,Space Research (passive),Secondary
+France,3100,29000,France,Alocation,Radiolocation,Primary
+Portugal,31000000,290000000,Portugal,Application,Aeronautical Radionavigation,Secondary
+Germany,35,275,Germany,Application,Space Research (passive),Secondary
+Croatia,3100,29000,Croatia,Application,Radiolocation,Primary
+Austria,3100,29000,Austria,Alocation,Radiolocation,Secondary
+Austria,35,275,Austria,Application,Space Research (passive),Secondary
+Austria,31000000,290000000,Austria,Application,Aeronautical Radionavigation,Primary
+Austria,31000000,290000000,Austria,Application,Maritime Mobile,Primary
+Austria,3000100,29000000,Austria,Application,Standard Frequency and Time Signal,Primary
+Albania,3000000,30000000,Albania,Application,Fixed,Secondary
+Austria,35,275,Austria,Application,Earth Exploration-Satellite (passive),Primary
+Belgium,31000000,290000000,Belgium,Alocation,Standard Frequency and Time Signal,Secondary
+France,35,275,France,Application,Earth Exploration-Satellite (passive),Secondary
+Croatia,31000000,290000000,Croatia,Alocation,Standard Frequency and Time Signal,Primary
+Germany,35,275,Germany,Application,Radio Astronomy,Secondary
+Greece,31000000,290000000,Greece,Alocation,Standard Frequency and Time Signal,Secondary
+Albania,4,29,Albania,Alocation,Radio Astronomy,Primary
+Belgium,4,29,Belgium,Application,Earth Exploration-Satellite (passive),Primary
+Austria,31000000,290000000,Austria,Alocation,Radionavigation,Primary
+France,3000000,30000000,France,Alocation,Maritime Mobile,Secondary
+Albania,3000100,29000000,Albania,Application,Standard Frequency and Time Signal,Primary
+Austria,31000000,290000000,Austria,Alocation,Standard Frequency and Time Signal,Secondary
+Belgium,35,275,Belgium,Alocation,Radio Astronomy,Secondary
+France,35,275,France,Application,Earth Exploration-Satellite (passive),Primary
+Croatia,31000000,290000000,Croatia,Alocation,Radionavigation,Secondary
+Germany,4,29,Germany,Alocation,Earth Exploration-Satellite (passive),Secondary
+Greece,4,29,Greece,Application,Radio Astronomy,Primary
+Albania,3100,29000,Albania,Alocation,Radio Astronomy,Primary
+Belgium,3000000,30000000,Belgium,Alocation,Radionavigation,Primary
+Austria,31000000,290000000,Austria,Application,Maritime Mobile,Secondary
+France,31000000,290000000,France,Alocation,Standard Frequency and Time Signal,Primary
+Albania,31000000,290000000,Albania,Alocation,Aeronautical Radionavigation,Secondary
+Austria,31000000,290000000,Austria,Application,Maritime Mobile,Secondary
+Belgium,31000000,290000000,Belgium,Alocation,Aeronautical Radionavigation,Primary
+France,31000000,290000000,France,Alocation,Aeronautical Radionavigation,Secondary
+Croatia,3000100,29000000,Croatia,Application,Standard Frequency and Time Signal,Secondary
+Germany,3000000,30000000,Germany,Application,Aeronautical Radionavigation,Primary
