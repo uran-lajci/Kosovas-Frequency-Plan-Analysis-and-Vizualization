@@ -3,93 +3,33 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
-
-# first = dataset.loc[(dataset['Frequency'] >= 0) & (dataset['Frequency'] < 90)]
-# fig1, ax = plt.subplots()
-# first.groupby('User')['Frequency'].plot(style='.-', legend=True)
-# ax.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
-# st.pyplot(fig1)
-
-# second = dataset.loc[(dataset['Frequency'] >= 91) & (dataset['Frequency'] < 100)]
-# fig2, ax = plt.subplots()
-# second.groupby('User')['Frequency'].plot(style='.-', legend=True)
-# ax.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
-# st.pyplot(fig2)
-
-# third = dataset.loc[(dataset['Frequency'] >= 101) & (dataset['Frequency'] < 110)]
-# fig3, ax = plt.subplots()
-# third.groupby('User')['Frequency'].plot(style='.-', legend=True)
-# ax.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
-# st.pyplot(fig3)
-
-# fourth = dataset.loc[(dataset['Frequency'] >= 111)]
-# fig4, ax = plt.subplots()
-# fourth.groupby('User')['Frequency'].plot(style='.-', legend=True)
-# ax.legend(bbox_to_anchor=(1.05, 1.0), loc='upper left')
-# st.pyplot(fig4)
-
 tab1, tab2, tab3 = st.tabs(["Frequency Slider", "Frequency From Filter", "About"])
-
+##python -m streamlit run da
 with tab1:
     st.header("Frequency allocation based on slider")
-    dataset = pd.read_csv(r"C:\Users\Elvir Misini\Downloads\Jupiter\frequenct_data.csv")
-##python -m streamlit run da
-    def replace_values(column, initial, final):
-        dataset[column] = dataset[column].replace(initial, final)
+    df = pd.read_csv(r"C:\Users\Elvir Misini\Downloads\frequency.csv")
 
-    frequency_dict = {
-        '5A': 174.928, 
-        '7D': 194.064, 
-        '8A': 195.936, 
-        '8C': 197.648, 
-        '9A': 202.928,
-        '9B': 204.64,
-        '9C': 206.352,
-        '10A':209.936,
-        '10B':211.648,
-        '10C':213.36,
-        '10D':215.072,
-        '11A':216.928,
-        '11B':218.64,
-        '11C':220.352,
-        '11D':222.064,
-        '12A':223.936,
-        '12B':225.648,
-        '12C':227.36,
-        '12D':229.072
-    }
+    lower=df["Lower Frequency"].min()
+    higher=df["Lower Frequency"].max()
 
-    for key, value in frequency_dict.items():
-        replace_values('Frequency', key, value)
+    start_clr, end_clr = st.slider("Select a range of frequences",
+                        value=(int(lower), int(higher)))
 
-    dataset['Frequency'] = pd.to_numeric(dataset['Frequency'], downcast="float")
-    dataset["Inclusion"] = pd.to_datetime(dataset["Inclusion"],errors='coerce', infer_datetime_format=True)
-    dataset["Modification"] = pd.to_datetime(dataset["Modification"],errors='coerce', infer_datetime_format=False)
-    dataset["Expiration"] = pd.to_datetime(dataset["Expiration"],errors='coerce', infer_datetime_format=False)
-
-    dataset['Inclusion'] = dataset['Inclusion'].fillna(dataset['Inclusion'].mean())
-    dataset['Modification'] = dataset['Modification'].fillna(dataset['Modification'].mean())
-    dataset['Expiration'] = dataset['Expiration'].fillna(dataset['Expiration'].mean())
-    dataset['Range'] = dataset['Range'].fillna("Less than 3000001")
-    dataset['Restrictions'] = dataset['Restrictions'].fillna("unknown")
-
-    frequecyLevels = [0,80,90,100,110,104.90,250]
-    start_clr, end_clr = st.select_slider("Select a range of frequences", options=frequecyLevels,
-                        value=(0, 250))
-
-    selectedRows = dataset[(dataset["Frequency"] >= start_clr) & (dataset["Frequency"] <= end_clr)]
+    selectedRows = df[(df["Lower Frequency"] >= start_clr) & (df["Higher Frequency"] <= end_clr)]
     st.write("You have selected ", len(selectedRows), " rows")
     st.write(selectedRows)
 
 with tab2:
   st.header("Frequency allocation based on filter")
 
+  location = df['Location'].unique()
+  language = df['Language'].unique()
+
   with st.form(key='salaryform'):
     col1,col2,col3, col4 = st.columns(4)
     
     with col1:
-        option1 = st.selectbox('Frequency bands',(
+        frequencyBands = st.selectbox('Frequency bands',(
             '3 - 30 kHz',
             '30 - 300 kHz',
             '300 kHz - 3 MHz',
@@ -99,24 +39,9 @@ with tab2:
             '3 - 30 GHz',
             '30 - 300 GHz'))
     with col2:
-        option2 = st.selectbox('Frequency table',(
-            'Albania',
-            'Austria',
-            'Belgium',
-            'Croatia',
-            'France',
-            'Germany',
-            'Greece',
-            'Portugal'))
+        state = st.selectbox('Frequency table', options=list(location))
     with col3:
-        option3 = st.selectbox('Language',(
-            'Albanian',
-            'Bosnian',
-            'Croation',
-            'English',
-            'German',
-            'Greek',
-            'Portugal'))
+        languageFromDataset = st.selectbox('Language', options=list(language))
     with col4:
         searchType = st.radio("Search Type", ("Application", "Alocation"))
         check = st.checkbox("Compare (Select multiple frequency tables)")
@@ -124,24 +49,39 @@ with tab2:
         
     submit_salary = st.form_submit_button(label='Search')
 
-
-    #################################
-    #################################
-    #################################
-    test=dataset['User'].unique()
-    print('')
-    print(test)
-    st.write('TESTTEST')
-    option = st.selectbox("Select option", options=list(test))
-##########################################
-##########################################
-##########################################
-##########################################
-
-
     if submit_salary:
-        
-        st.write(selectedRows)
+        if frequencyBands == "3 - 30 kHz":
+            lowerBound = 3
+            upperBound = 30
+        elif frequencyBands == "30 - 300 kHz":
+            lowerBound = 30
+            upperBound = 300
+        elif frequencyBands == "300 kHz - 3 MHz":
+            lowerBound = 300
+            upperBound = 30000
+        elif frequencyBands == "3 - 30 MHz":
+         lowerBound = 30000 
+         upperBound = 300000 
+        elif frequencyBands == "30 MHz - 300 MHz":
+            lowerBound = 300000 
+            upperBound = 3000000 
+        elif frequencyBands == "300 MHz - 3 GHz":
+            lowerBound = 300000
+            upperBound = 3000000
+        elif frequencyBands == "3 - 30 GHz":
+            lowerBound = 3000000
+            upperBound = 30000000
+        elif frequencyBands == "'30 - 300 GHz'":
+            lowerBound = 30000000
+            upperBound = 300000000
+            
+        st.write(df[(df['Lower Frequency'] >= lowerBound) & (df['Lower Frequency'] <= upperBound) 
+            & (df['Location'] == state)
+            & (df['Language'] == languageFromDataset)
+            & (df['Type'] == searchType)    
+        ])
+        st.write(check)
+        st.write(allocationOrientation)
     
 with tab3:
    st.header("An owl")
