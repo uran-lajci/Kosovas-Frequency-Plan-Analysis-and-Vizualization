@@ -86,26 +86,63 @@ with tab2:
   st.header("Frequency allocation based on filter")
 
   with st.form(key='salaryform'):
-            col1,col2,col3 = st.columns([3,2,1])
-            
-            with col1:
-                option = st.selectbox(
-                'Level select',
-                ('State Level','Other'))
+    col1,col2,col3, col4 = st.columns(4)
+    
+    with col1:
+        option1 = st.selectbox('Frequency bands',(
+            '3 - 30 kHz',
+            '30 - 300 kHz',
+            '300 kHz - 3 MHz',
+            '3 - 30 MHz',
+            '30 MHz - 300 MHz',
+            '300 MHz - 3 GHz',
+            '3 - 30 GHz',
+            '30 - 300 GHz'))
+    with col2:
+        option2 = st.selectbox('Frequency table',(
+            'Albania',
+            'Austria',
+            'Belgium',
+            'Croatia',
+            'France',
+            'Germany',
+            'Greece',
+            'Portugal'))
+    with col3:
+        option3 = st.selectbox('Language',(
+            'Albanian',
+            'Bosnian',
+            'Croation',
+            'English',
+            'German',
+            'Greek',
+            'Portugal'))
+    with col4:
+        searchType = st.radio("Search Type", ("Application", "Alocation"))
+        check = st.checkbox("Compare (Select multiple frequency tables)")
+        allocationOrientation = st.radio("Allocation orientation", ("Horizontal", "Vertical"))
+        
+    submit_salary = st.form_submit_button(label='Search')
 
 
-            with col2:
-                option = st.selectbox(
-                'Range',
-                ('More than 3000001','Other'))
-            with col3:
-                genre = st.radio(
-                "Search type",
-                ('Allocation', 'Application'))
-             
-            submit_salary = st.form_submit_button(label='Search')
-  
+    #################################
+    #################################
+    #################################
+    test=dataset['User'].unique()
+    print('')
+    print(test)
+    st.write('TESTTEST')
+    option = st.selectbox("Select option", options=list(test))
+##########################################
+##########################################
+##########################################
+##########################################
 
+
+    if submit_salary:
+        
+        st.write(selectedRows)
+    
 with tab3:
    st.header("An owl")
    st.image("https://static.streamlit.io/examples/owl.jpg", width=200)
