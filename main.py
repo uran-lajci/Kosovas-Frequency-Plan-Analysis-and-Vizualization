@@ -9,7 +9,7 @@ from googletrans import Translator
 
 st.set_page_config(layout="wide")
 
-tab1, tab2, tab3 = st.tabs(["Frequency Slider", "Frequency From Filter", "About"])
+tab1, tab2, tab3, tab7 = st.tabs(["Frequency Slider","Frequency Filter", "Statistics", "About"])
 
 df = pd.read_csv('frequency.csv')
 
@@ -181,5 +181,15 @@ with tab2:
         # st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 with tab3:
-   st.header("An owl")
-   st.image("https://static.streamlit.io/examples/owl.jpg", width=200)
+   st.header("Statistics for experts")
+with tab7:
+   st.header("About")
+   st.markdown('Ky projekt është zhvilluar në kuadër të Universitetit të Prishtinës të nivelit master departmenti **Inxhinieri Kompjuterike** për digjitalizim të sherbimeve të ARKEP: Vizualizimi interaktiv ne Ueb i te dhenave te planit frekuencor. Të dhënat janë marrë nga ARKEP dhe janë shfytëzuar gjatë zhvillimit dhe testimit të programit.')
+   st.markdown("Ky projekt është zhvilluar në gjuhën programuese :red[Python] dhe është përdorur libraria **:blue[Streamlit]** për vizualizim.")
+   st.markdown("https://streamlit.io/")
+   st.markdown("https://docs.python.org/3/")
+   st.markdown("Ky projekt është zhvilluar nga:")
+   st.markdown("Elvir Misini -- elvir.misini@student.uni-pr.edu")
+   st.markdown("Uran Lajçi -- uran.lajci@student.uni-pr.edu")
+
+   #st.image("https://static.streamlit.io/examples/owl.jpg", width=200)
