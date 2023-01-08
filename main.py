@@ -184,7 +184,7 @@ with tab3:
    st.header("Statistics for experts")
    with st.form(key='statistics'):
         col1,col2 = st.columns(2)
-        
+        df_test = pd.read_csv('FP_KOS_2022.csv')
         with col1:
            number = st.number_input('Insert a number')  
         with col2:
@@ -198,17 +198,62 @@ with tab3:
         freeFrequency=[]
         if submit_search:
             if frequencyUnit =='KHz':
-                freeFrequency = df[(df["Lower Frequency"] == number*1000)]
+                freeFrequency = df_test[(df_test["_lowerFrequency"] == number*1000)]
             elif frequencyUnit=='MHz':
-                freeFrequency = df[(df["Lower Frequency"] == number*1000000)]
+                freeFrequency = df_test[(df_test["_lowerFrequency"] == number*1000000)]
             elif frequencyUnit=='GHz':
-                freeFrequency = df[(df["Lower Frequency"] == number*1000000000)]
+                freeFrequency = df_test[(df_test["_lowerFrequency"] == number*1000000000)]
             
             if len(freeFrequency)>0:
                 st.write("There are ", len(freeFrequency), " rows in this frequency")
                 st.write(freeFrequency)
             else:
                 st.write("This frequency is **:green[free]**")
+        
+####################################################
+
+   with st.form(key='statistics_groupByTerm'):
+        
+        
+        term=df_test['_term'].unique()
+        frequencyTerm = st.selectbox('Frequency Term',(term))
+        
+        submit_search = st.form_submit_button(label='Search')
+        if submit_search:
+            GroupByTerm = df_test[(df_test["_term"] == frequencyTerm)]
+            
+
+            tabTable, tabPlot= st.tabs(["table", "plot"])
+            with tabTable:
+                st.write(GroupByTerm)
+            
+            with tabPlot:
+                fig = px.scatter(
+                    GroupByTerm,
+                    x="_lowerFrequency",
+                    y="_status",
+                    size="_lowerFrequency",
+                    color="_lowerFrequency",
+                    hover_name="_status",
+                    log_x=True,
+                    size_max=60,
+                )
+
+                st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
+
+#########################################
+   with st.form(key='statistics_groupByStatus'):
+        df_test = pd.read_csv('FP_KOS_2022.csv')
+        
+        status=df_test['_status'].unique()
+        frequencyStatus = st.selectbox('Frequency Status',(status))
+        
+        submit_search = st.form_submit_button(label='Search')
+
+        if submit_search:
+            GroupByStatus = df_test[(df_test["_status"] == frequencyStatus)]
+            st.write(GroupByStatus)
         
 
 
