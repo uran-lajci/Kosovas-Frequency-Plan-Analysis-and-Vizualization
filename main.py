@@ -182,6 +182,37 @@ with tab2:
 
 with tab3:
    st.header("Statistics for experts")
+   with st.form(key='statistics'):
+        col1,col2 = st.columns(2)
+        
+        with col1:
+           number = st.number_input('Insert a number')  
+        with col2:
+            frequencyUnit = st.selectbox('Frequency bands',(
+                'KHz',
+                'MHz',
+                'GHz',))
+        
+        submit_search = st.form_submit_button(label='Search')
+
+        freeFrequency=[]
+        if submit_search:
+            if frequencyUnit =='KHz':
+                freeFrequency = df[(df["Lower Frequency"] == number*1000)]
+            elif frequencyUnit=='MHz':
+                freeFrequency = df[(df["Lower Frequency"] == number*1000000)]
+            elif frequencyUnit=='GHz':
+                freeFrequency = df[(df["Lower Frequency"] == number*1000000000)]
+            
+            if len(freeFrequency)>0:
+                st.write("There are ", len(freeFrequency), " rows in this frequency")
+                st.write(freeFrequency)
+            else:
+                st.write("This frequency is **:green[free]**")
+        
+
+
+    
 with tab7:
    st.header("About")
    st.markdown('Ky projekt është zhvilluar në kuadër të Universitetit të Prishtinës të nivelit master departmenti **Inxhinieri Kompjuterike** për digjitalizim të sherbimeve të ARKEP: Vizualizimi interaktiv ne Ueb i te dhenave te planit frekuencor. Të dhënat janë marrë nga ARKEP dhe janë shfytëzuar gjatë zhvillimit dhe testimit të programit.')
