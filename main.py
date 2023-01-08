@@ -182,9 +182,10 @@ with tab2:
 
 with tab3:
    st.header("Statistics for experts")
+   df_test = pd.read_csv('FP_KOS_2022.csv')
    with st.form(key='statistics'):
         col1,col2 = st.columns(2)
-        df_test = pd.read_csv('FP_KOS_2022.csv')
+        
         with col1:
            number = st.number_input('Insert a number')  
         with col2:
@@ -253,7 +254,27 @@ with tab3:
 
         if submit_search:
             GroupByStatus = df_test[(df_test["_status"] == frequencyStatus)]
-            st.write(GroupByStatus)
+
+            tabTable, tabPlot= st.tabs(["table", "plot"])
+            with tabTable:
+                st.write(GroupByStatus)
+            
+            with tabPlot:
+                fig = px.scatter(
+                    GroupByStatus,
+                    x="_lowerFrequency",
+                    y="_term",
+                    size="_lowerFrequency",
+                    color="_term",
+                    hover_name="_higherFrequency",
+                    log_x=True,
+                    size_max=60,
+                )
+
+                st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+        
+
+           # st.write(GroupByStatus)
         
 
 
