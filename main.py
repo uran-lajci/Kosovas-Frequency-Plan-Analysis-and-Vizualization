@@ -182,36 +182,51 @@ with tab3:
    st.header("Statistics for experts")
    df_test = pd.read_csv('FP_KOS_2022.csv')
    with st.form(key='statistics'):
-        col1,col2 = st.columns(2)
+        st.subheader("Search if a specific frequency is free!")
+        col1,col2,col3 = st.columns(3)
         
         with col1:
            number = st.number_input('Insert a number')  
         with col2:
-            frequencyUnit = st.selectbox('Frequency bands',(
+            frequencyUnit = st.selectbox('Frequency Units',(
                 'KHz',
                 'MHz',
                 'GHz',))
+        
+        with col3:
+            frequency = st.selectbox('Higher/lower',(
+                'Lower Frequency',
+                'Higher Frequency',))
         
         submit_search = st.form_submit_button(label='Search')
 
         freeFrequency=[]
         if submit_search:
-            if frequencyUnit =='KHz':
-                freeFrequency = df_test[(df_test["_lowerFrequency"] == number*1000)]
-            elif frequencyUnit=='MHz':
-                freeFrequency = df_test[(df_test["_lowerFrequency"] == number*1000000)]
-            elif frequencyUnit=='GHz':
-                freeFrequency = df_test[(df_test["_lowerFrequency"] == number*1000000000)]
-            
+            if frequency=='Lower Frequency':
+                if frequencyUnit =='KHz':
+                    freeFrequency = df_test[(df_test["_lowerFrequency"] == number*1000)]
+                elif frequencyUnit=='MHz':
+                    freeFrequency = df_test[(df_test["_lowerFrequency"] == number*1000000)]
+                elif frequencyUnit=='GHz':
+                    freeFrequency = df_test[(df_test["_lowerFrequency"] == number*1000000000)]
+            else:
+                if frequencyUnit =='KHz':
+                    freeFrequency = df_test[(df_test["_higherFrequency"] == number*1000)]
+                elif frequencyUnit=='MHz':
+                    freeFrequency = df_test[(df_test["_higherFrequency"] == number*1000000)]
+                elif frequencyUnit=='GHz':
+                    freeFrequency = df_test[(df_test["_higherFrequency"] == number*1000000000)]
+
             if len(freeFrequency)>0:
                 st.write("There are ", len(freeFrequency), " rows in this frequency")
-                st.write(freeFrequency)
+                st.write(freeFrequency.drop(['_shortComments'],axis=1))
             else:
                 st.write("This frequency is **:green[free]**")
         
 ####################################################
 
    with st.form(key='statistics_groupByTerm'):
+        st.subheader("Group by Frequency Term")
         
         
         term=df_test['_term'].unique()
@@ -224,7 +239,7 @@ with tab3:
 
             tabTable, tabPlot= st.tabs(["table", "plot"])
             with tabTable:
-                st.write(GroupByTerm)
+                st.write(GroupByTerm.drop(['_shortComments'],axis=1))
             
             with tabPlot:
                 fig = px.scatter(
@@ -243,6 +258,7 @@ with tab3:
 
 #########################################
    with st.form(key='statistics_groupByStatus'):
+        st.subheader("Group by Frequency Status")
         df_test = pd.read_csv('FP_KOS_2022.csv')
         
         status=df_test['_status'].unique()
@@ -255,7 +271,7 @@ with tab3:
 
             tabTable, tabPlot= st.tabs(["table", "plot"])
             with tabTable:
-                st.write(GroupByStatus)
+                st.write(GroupByStatus.drop(['_shortComments'],axis=1))
             
             with tabPlot:
                 fig = px.scatter(
