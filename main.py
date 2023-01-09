@@ -14,8 +14,6 @@ tab1, tab2, tab3, tab7 = st.tabs(["Frequency Slider","Frequency Filter", "Statis
 df = pd.read_csv('frequency.csv')
 
 with tab1:
-    
-
     st.header("Frequency allocation based on slider")
     lower= df["Lower Frequency"].min()
     higher= df["Lower Frequency"].max()
