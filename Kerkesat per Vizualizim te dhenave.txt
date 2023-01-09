@@ -1,0 +1,27 @@
+Frequency Slider
+
+- opsionale: te slider mos me u dokt numrat si 60, 70, etj
+- opsionale: te bar charti te slider me ja shtu ngjyrat
+
+Frequency Filter
+
+- ne vend te Country me e qit term
+- ne vend te search type me vendos status
+- me e heq Compare
+- me i fut ne perdorim Horizontal dhe Vertical
+- vetem te filteri te perdoret dataseti i ri
+- me e shtu grafin te filteri dhe me ja shtu ndonje shenj qe tregon per horizontal slide
+
+Statistics
+
+- te frequency search me shtu lower edhe higher
+
+About
+
+- plotesohet me te dhena shtes
+- pershkrimi i datasetit (dhe ne A4 flete per te ja dorzu Profes)
+-----------------------------------------------------------------------------------------------
+- opsionale e fundit: tabi mundesisht te jete i ndare per user dhe admin
+? statistika per brezat e lire frekunecor
+
+
