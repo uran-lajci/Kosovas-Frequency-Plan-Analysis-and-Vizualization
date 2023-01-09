@@ -279,11 +279,19 @@ with tab3:
     
 with tab7:
    st.header("About")
+   st.subheader("Përshkrimi i projektit")
    st.markdown('Ky projekt është zhvilluar në kuadër të Universitetit të Prishtinës të nivelit master departmenti **Inxhinieri Kompjuterike** për digjitalizim të sherbimeve të ARKEP: Vizualizimi interaktiv ne Ueb i te dhenave te planit frekuencor. Të dhënat janë marrë nga ARKEP dhe janë shfytëzuar gjatë zhvillimit dhe testimit të programit.')
-   st.markdown("Ky projekt është zhvilluar në gjuhën programuese :red[Python] dhe është përdorur libraria **:blue[Streamlit]** për vizualizim.")
+   st.markdown("Ky projekt është zhvilluar në gjuhën programuese :red[Python] dhe janë përdorur libraritë **:blue[Streamlit]**, **:blue[Pandas]**, **:blue[numpy]**,**:blue[ploty.express]**, **:blue[seaborn]**, **:blue[matplotlib]** për vizualizim dhe **:blue[googletrans] për përkthim**.")
    st.markdown("https://streamlit.io/")
    st.markdown("https://docs.python.org/3/")
-   st.markdown("Ky projekt është zhvilluar nga:")
+   st.markdown("https://numpy.org/doc/")
+   st.markdown("https://plotly.com/python/plotly-express/")
+   st.markdown("https://seaborn.pydata.org/")
+   st.markdown("https://matplotlib.org/stable/index.html")
+   st.markdown("https://py-googletrans.readthedocs.io/en/latest/")
+   st.subheader('Përshkrimi i datasetit')
+   st.markdown('Dataseti që kemi përdorur në këtë projket është shpërndarja dhe aplikimi i radio-frekuencave në Republikën e Kosovës që i takojn brezit nga 8.3KHz deri në 3000GHz, i cili na është dhënë nga ARKEP. Ky dataset përmban frekuencën e ulët, frekuencën e lart, statusin dhe llojin e frekunecës, dhe përmban rreth 1431 të dhëna.')
+   st.subheader("Ky projekt është zhvilluar nga:")
    st.markdown("Elvir Misini -- elvir.misini@student.uni-pr.edu")
    st.markdown("Uran Lajçi -- uran.lajci@student.uni-pr.edu")
 
