@@ -18,8 +18,8 @@ Statistics
 
 About
 
-- plotesohet me te dhena shtes
-- pershkrimi i datasetit (dhe ne A4 flete per te ja dorzu Profes)
+- plotesohet me te dhena shtes+++++++++++++++(rishikim)
+- pershkrimi i datasetit (dhe ne A4 flete per te ja dorzu Profes)++++++++ (rishikim)
 -----------------------------------------------------------------------------------------------
 - opsionale e fundit: tabi mundesisht te jete i ndare per user dhe admin
 ? statistika per brezat e lire frekunecor
