@@ -1,12 +1,12 @@
 import pandas as pd
 import numpy as np
 import plotly.express as px
-import time
-import seaborn as sns
-import matplotlib.pyplot as plt
 import streamlit as st
 from googletrans import Translator
+import translators as ts
 import streamlit.components.v1 as components
+from slider_bound_and_frequency import *
+from filter_utils import *
 
 st.set_page_config(layout="wide")
 st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -20,79 +20,10 @@ with tab1:
     st.write("1 Hz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 1 KHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 10 KHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; 100 KHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 1 MHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 10 MHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 100 MHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 1 GHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 10 GHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 100 GHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 1 THz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 10 THz")
     start_clr, end_clr = st.slider("Select a range of Frequencies",value=(0, 110), step=10, label_visibility="hidden")
 
-    if(start_clr == 0):
-        lowerBound = 0
-        lowerFrequency = "1 Hz"
-    elif(start_clr == 10):
-        lowerBound = 10 ** 3
-        lowerFrequency = "1 KHz"
-    elif(start_clr == 20):
-        lowerBound = 10 ** 4
-        lowerFrequency = "10 KHz"
-    elif(start_clr == 30):
-        lowerBound = 10 ** 5
-        lowerFrequency = "100 KHz"
-    elif(start_clr == 40):
-        lowerBound = 10 ** 6
-        lowerFrequency = "1 MHz"
-    elif(start_clr == 50):
-        lowerBound = 10 ** 7
-        lowerFrequency = "10 MHz"
-    elif(start_clr == 60):
-        lowerBound = 10 ** 8
-        lowerFrequency = "100 MHz"
-    elif(start_clr == 70):
-        lowerBound = 10 ** 9
-        lowerFrequency = "1 GHz"
-    elif(start_clr == 80):
-        lowerBound = 10 ** 10
-        lowerFrequency = "10 GHz"
-    elif(start_clr == 90):
-        lowerBound = 10 ** 11
-        lowerFrequency = "100 GHz"
-    elif(start_clr == 100):
-        lowerBound = 10 ** 12
-        lowerFrequency = "1 THz"
-    elif(start_clr == 110):
-        lowerBound = 10 ** 13
-        lowerFrequency = "10 THz"
-
-    if(end_clr == 0):
-        upperBound = 0
-        upperFrequency = "1 Hz"
-    elif(end_clr == 10):
-        upperBound = 10 ** 3
-        upperFrequency = "1 KHz"
-    elif(end_clr == 20):
-        upperBound = 10 ** 4
-        upperFrequency = "10 KHz"
-    elif(end_clr == 30):
-        upperBound = 10 ** 5
-        upperFrequency = "100 KHz"
-    elif(end_clr == 40):
-        upperBound = 10 ** 6
-        upperFrequency = "1 MHz"
-    elif(end_clr == 50):
-        upperBound = 10 ** 7
-        upperFrequency = "10 MHz"
-    elif(end_clr == 60):
-        upperBound = 10 ** 8
-        upperFrequency = "100 MHz"
-    elif(end_clr == 70):
-        upperBound = 10 ** 9
-        upperFrequency = "1 GHz"
-    elif(end_clr == 80):
-        upperBound = 10 ** 10
-        upperFrequency = "10 GHz"
-    elif(end_clr == 90):
-        upperBound = 10 ** 11
-        upperFrequency = "100 GHz"
-    elif(end_clr == 100):
-        upperBound = 10 ** 12
-        upperFrequency = "1 THz"
-    elif(end_clr == 110):
-        upperBound = 10 ** 13
-        upperFrequency = "10 THz"
+    lowerBound = getLowerBoundAndFrequency(start_clr)[0]
+    lowerFrequency = getLowerBoundAndFrequency(start_clr)[1]
+    upperBound = getUpperBoundAndFrequency(end_clr)[0]
+    upperFrequency = getUpperBoundAndFrequency(end_clr)[1]
 
     tabForLowerBounds, tabForUpperBounds = st.tabs(["Lower Bound Frequencies", "Upper Bound Frequencies"])
 
@@ -144,40 +75,14 @@ with tab2:
     dummy = np.append(dummy,"All")
     term = np.append(dummy, df['_term'].unique())
     
-    translator = Translator()
     with st.form(key='salaryform'):
         col1,col2,col3, col4 = st.columns(4)
         with col1:
-            frequencyBands = st.selectbox('Frequency bands',(
-                '3 - 30 kHz',
-                '30 - 300 kHz',
-                '300 kHz - 3 MHz',
-                '3 - 30 MHz',
-                '30 MHz - 300 MHz',
-                '300 MHz - 3 GHz',
-                '3 - 30 GHz',
-                '30 - 300 GHz'))
+            frequencyBands = st.selectbox('Frequency bands',(getFrequencyBounds()))
         with col2:
             state = st.selectbox('Term', options=list(term))
         with col3:
-            languageFromDataset = st.selectbox('Language', (
-                'Bangla',
-                'English',
-                'Koren',
-                'French',
-                'German',
-                'Hebrew',
-                'Hindi',
-                'Italian',
-                'Japanese',
-                'Latin',
-                'Malay',
-                'Nepali',
-                'Russian',
-                'Arabic',
-                'Chinese',
-                'Spanish'
-            ))
+            languageFromDataset = st.selectbox('Language', (getLanguages()))
         with col4:
             searchType = st.radio("Status", ("primary", "secondary"))
             allocationOrientation = st.radio("Allocation orientation", ("Horizontal", "Vertical"))
@@ -185,61 +90,10 @@ with tab2:
         submit_salary = st.form_submit_button(label='Search')
 
     if submit_salary:
-        if frequencyBands == "3 - 30 kHz":
-            lowerBound = 3
-            upperBound = 30
-        elif frequencyBands == "30 - 300 kHz":
-            lowerBound = 30
-            upperBound = 300
-        elif frequencyBands == "300 kHz - 3 MHz":
-            lowerBound = 300
-            upperBound = 30000
-        elif frequencyBands == "3 - 30 MHz":
-            lowerBound = 30000 
-            upperBound = 300000 
-        elif frequencyBands == "30 MHz - 300 MHz":
-            lowerBound = 300000 
-            upperBound = 3000000 
-        elif frequencyBands == "300 MHz - 3 GHz":
-            lowerBound = 300000
-            upperBound = 3000000
-        elif frequencyBands == "3 - 30 GHz":
-            lowerBound = 3000000
-            upperBound = 30000000
-        elif frequencyBands == "'30 - 300 GHz'":
-            lowerBound = 30000000
-            upperBound = 300000000
+        lowerBound = getLowerBoundAndUpperBound(frequencyBands)[0]
+        upperBound = getLowerBoundAndUpperBound(frequencyBands)[1]
 
-        if languageFromDataset == 'Bangla':
-            lang = 'bn'
-        elif languageFromDataset == 'English':
-            lang = 'en'
-        elif languageFromDataset == 'Koren':
-            lang = 'ko'
-        elif languageFromDataset == 'German':
-            lang = 'de'
-        elif languageFromDataset == 'Hebrew':
-            lang = 'he'
-        elif languageFromDataset == 'Hindi':
-            lang = 'hi'
-        elif languageFromDataset == 'Italian':
-            lang = 'it'
-        elif languageFromDataset == 'Japanese':
-            lang = 'ja'
-        elif languageFromDataset == 'Latin':
-            lang = 'la'
-        elif languageFromDataset == 'Malay':
-            lang = 'ms'
-        elif languageFromDataset == 'Nepali':
-            lang = 'ne'
-        elif languageFromDataset == 'Russian':
-            lang = 'ru'
-        elif languageFromDataset == 'Arabic':
-            lang = 'ar'
-        elif languageFromDataset == 'Chinese':
-            lang = 'zh'
-        elif languageFromDataset == 'Spanish':
-            lang = 'es'
+        lang = getAbbreviationForLanguage(languageFromDataset)
         
         if(state == "All"):
             dataset = df[(df['_lowerFrequency'] >= lowerBound) & (df['_lowerFrequency'] <= upperBound) 
@@ -251,148 +105,8 @@ with tab2:
         if(len(dataset) == 0):
             st.write("No data!")
         else:
-            dataset['_term'] = dataset['_term'].apply(translator.translate, dest=lang).apply(getattr, args=('text',))
         
-            colors = [
-                "aqua",
-                "aquamarine",
-                "azure",
-                "beige",
-                "bisque",
-                "blanchedalmond",
-                "blue",
-                "blueviolet",
-                "brown",
-                "burlywood",
-                "cadetblue",
-                "chartreuse",
-                "chocolate",
-                "coral",
-                "cornflowerblue",
-                "cornsilk",
-                "crimson",
-                "cyan",
-                "darkblue",
-                "darkcyan",
-                "darkgoldenrod",
-                "darkgray",
-                "darkgreen",
-                "darkkhaki",
-                "darkmagenta",
-                "darkolivegreen",
-                "darkorange",
-                "darkorchid",
-                "darkred",
-                "darksalmon",
-                "darkseagreen",
-                "darkslateblue",
-                "darkslategray",
-                "darkturquoise",
-                "darkviolet",
-                "deeppink",
-                "deepskyblue",
-                "dimgray",
-                "dodgerblue",
-                "firebrick",
-                "floralwhite",
-                "forestgreen",
-                "fuchsia",
-                "gainsboro",
-                "ghostwhite",
-                "gold",
-                "goldenrod",
-                "gray",
-                "green",
-                "greenyellow",
-                "honeydew",
-                "hotpink",
-                "indianred",
-                "indigo",
-                "ivory",
-                "khaki",
-                "lavender",
-                "lavenderblush",
-                "lawngreen",
-                "lemonchiffon",
-                "lightblue",
-                "lightcoral",
-                "lightcyan",
-                "lightgoldenrodyellow",
-                "lightgreen",
-                "lightgrey",
-                "lightpink",
-                "lightsalmon",
-                "lightseagreen",
-                "lightskyblue",
-                "lightslategray",
-                "lightsteelblue",
-                "lightyellow",
-                "lime",
-                "limegreen",
-                "linen",
-                "magenta",
-                "maroon",
-                "mediumaquamarine",
-                "mediumblue",
-                "mediumorchid",
-                "mediumpurple",
-                "mediumseagreen",
-                "mediumslateblue",
-                "mediumspringgreen",
-                "mediumturquoise",
-                "mediumvioletred",
-                "midnightblue",
-                "mintcream",
-                "mistyrose",
-                "moccasin",
-                "navajowhite",
-                "navy",
-                "navyblue",
-                "oldlace",
-                "olive",
-                "olivedrab",
-                "orange",
-                "orangered",
-                "orchid",
-                "palegoldenrod",
-                "palegreen",
-                "paleturquoise",
-                "palevioletred",
-                "papayawhip",
-                "peachpuff",
-                "peru",
-                "pink",
-                "plum",
-                "powderblue",
-                "purple",
-                "red",
-                "rosybrown",
-                "royalblue",
-                "saddlebrown",
-                "salmon",
-                "sandybrown",
-                "seagreen",
-                "seashell",
-                "sienna",
-                "silver",
-                "skyblue",
-                "slateblue",
-                "slategray",
-                "snow",
-                "springgreen",
-                "steelblue",
-                "tan",
-                "teal",
-                "thistle",
-                "tomato",
-                "turquoise",
-                "violet",
-                "wheat",
-                "white",
-                "whitesmoke",
-                "yellow",
-                "yellowgreen",
-            ]
+            colors = getColors()
 
             html_string = []
             if(allocationOrientation == "Horizontal"):
@@ -441,17 +155,16 @@ with tab2:
             html_string.append("<div class='ccc123'>")
 
             df2 = dataset.reset_index(drop=True)
-
+            translator = Translator()
             for i in range(len(df2)):
                 html_string.append(
                     f"""
                 <div style="background-color:{colors[i]};">
-                    <h5>{df2["_term"].loc[i]}</h5>
-                    <p>{df2["_lowerFrequency"].loc[i]} - {df2["_higherFrequency"].loc[i]}</p>
+                    <h5>{translator.translate(df2["_term"].loc[i], dest=lang).text}</h5>
+                    <p>{df2["_lowerFrequency"].loc[i]} Hz - {df2["_higherFrequency"].loc[i]} Hz</p>
                 </div>
                 """
                 )
-            
             
             components.html("".join(html_string), height=200, scrolling=True)  # JavaScript works
     
@@ -587,5 +300,3 @@ with tab7:
    st.subheader("Ky projekt është zhvilluar nga:")
    st.markdown("Elvir Misini -- elvir.misini@student.uni-pr.edu")
    st.markdown("Uran Lajçi -- uran.lajci@student.uni-pr.edu")
-
-   #st.image("https://static.streamlit.io/examples/owl.jpg", width=200)
