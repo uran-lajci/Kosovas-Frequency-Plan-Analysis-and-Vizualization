@@ -22,7 +22,7 @@ with tabForFrequencySlider:
     lowerFrequency = getLowerBoundAndFrequency(start_clr)[1]
     upperBound = getUpperBoundAndFrequency(end_clr)[0]
     upperFrequency = getUpperBoundAndFrequency(end_clr)[1]
-    tabForLowerBounds, tabForUpperBounds = st.tabs(["Lower Bound Frequencies", "Upper Bound Frequencies"])
+    tabForLowerBounds, tabForUpperBounds, tabForBothBounds = st.tabs(["Lower Bound Frequencies", "Upper Bound Frequencies", "Lower and Upper Frequencies"])
 
     with tabForLowerBounds:
         selectedRows = df[(df["_lowerFrequency"] >= lowerBound) & (df["_lowerFrequency"] <= upperBound)]
@@ -59,6 +59,24 @@ with tabForFrequencySlider:
                 size_max=60,)
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
         st.bar_chart(data=selectedRows, x='_term', y='_higherFrequency', width=0, height=0, use_container_width=True)
+
+    with tabForBothBounds:
+        selectedRows = df[(df["_lowerFrequency"] >= lowerBound) & (df["_higherFrequency"] <= upperBound)]
+        if(lowerFrequency != upperFrequency):
+            st.subheader("You have selected the records from " + lowerFrequency + " to " + upperFrequency)
+        else:
+            st.subheader("You have selected the frequency records in " + lowerFrequency)
+        
+        fig = px.scatter(
+            selectedRows,
+            x="_lowerFrequency",
+            y="_higherFrequency",
+            color="_term",
+            hover_name="_term",
+            log_x=True,
+            size_max=1400,
+        )
+        st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 with tabForFrequencyFilter:
     st.header("Frequency allocation based on filter")
