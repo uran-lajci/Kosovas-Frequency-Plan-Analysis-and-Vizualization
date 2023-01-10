@@ -5,12 +5,12 @@ Frequency Slider
 
 Frequency Filter
 
-- ne vend te Country me e qit term
-- ne vend te search type me vendos status
-- me e heq Compare
-- me i fut ne perdorim Horizontal dhe Vertical
-- vetem te filteri te perdoret dataseti i ri
-- me e shtu grafin te filteri dhe me ja shtu ndonje shenj qe tregon per horizontal slide
++ ne vend te Country me e qit term
++ ne vend te search type me vendos status
++ me e heq Compare
++ me i fut ne perdorim Horizontal dhe Vertical
++ vetem te filteri te perdoret dataseti i ri
++ me e shtu grafin te filteri dhe me ja shtu ndonje shenj qe tregon per horizontal slide
 
 Statistics
 

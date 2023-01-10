@@ -6,57 +6,147 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
 from googletrans import Translator
+import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide")
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 tab1, tab2, tab3, tab7 = st.tabs(["Frequency Slider","Frequency Filter", "Statistics", "About"])
 
-df = pd.read_csv('frequency.csv')
+df = pd.read_csv('FP_KOS_2022.csv')
 
 with tab1:
     st.header("Frequency allocation based on slider")
-    lower= df["Lower Frequency"].min()
-    higher= df["Lower Frequency"].max()
+    st.write("1 Hz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 1 KHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 10 KHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp; 100 KHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 1 MHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 10 MHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 100 MHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 1 GHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 10 GHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 100 GHz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 1 THz &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; 10 THz")
+    start_clr, end_clr = st.slider("Select a range of Frequencies",value=(0, 110), step=10, label_visibility="hidden")
 
-    start_clr, end_clr = st.slider("Select a range of frequences",
-                        value=(int(lower), int(higher)))
+    if(start_clr == 0):
+        lowerBound = 0
+        lowerFrequency = "1 Hz"
+    elif(start_clr == 10):
+        lowerBound = 10 ** 3
+        lowerFrequency = "1 KHz"
+    elif(start_clr == 20):
+        lowerBound = 10 ** 4
+        lowerFrequency = "10 KHz"
+    elif(start_clr == 30):
+        lowerBound = 10 ** 5
+        lowerFrequency = "100 KHz"
+    elif(start_clr == 40):
+        lowerBound = 10 ** 6
+        lowerFrequency = "1 MHz"
+    elif(start_clr == 50):
+        lowerBound = 10 ** 7
+        lowerFrequency = "10 MHz"
+    elif(start_clr == 60):
+        lowerBound = 10 ** 8
+        lowerFrequency = "100 MHz"
+    elif(start_clr == 70):
+        lowerBound = 10 ** 9
+        lowerFrequency = "1 GHz"
+    elif(start_clr == 80):
+        lowerBound = 10 ** 10
+        lowerFrequency = "10 GHz"
+    elif(start_clr == 90):
+        lowerBound = 10 ** 11
+        lowerFrequency = "100 GHz"
+    elif(start_clr == 100):
+        lowerBound = 10 ** 12
+        lowerFrequency = "1 THz"
+    elif(start_clr == 110):
+        lowerBound = 10 ** 13
+        lowerFrequency = "10 THz"
 
-    selectedRows = df[(df["Lower Frequency"] >= start_clr) & (df["Higher Frequency"] <= end_clr)]
-    st.write("You have selected ", len(selectedRows), " rows")
-    tab4, tab5,tab6= st.tabs(["table","bar", "plot"])
-    with tab4:
-        st.write(selectedRows)
-#    field=df['Field'].unique()
+    if(end_clr == 0):
+        upperBound = 0
+        upperFrequency = "1 Hz"
+    elif(end_clr == 10):
+        upperBound = 10 ** 3
+        upperFrequency = "1 KHz"
+    elif(end_clr == 20):
+        upperBound = 10 ** 4
+        upperFrequency = "10 KHz"
+    elif(end_clr == 30):
+        upperBound = 10 ** 5
+        upperFrequency = "100 KHz"
+    elif(end_clr == 40):
+        upperBound = 10 ** 6
+        upperFrequency = "1 MHz"
+    elif(end_clr == 50):
+        upperBound = 10 ** 7
+        upperFrequency = "10 MHz"
+    elif(end_clr == 60):
+        upperBound = 10 ** 8
+        upperFrequency = "100 MHz"
+    elif(end_clr == 70):
+        upperBound = 10 ** 9
+        upperFrequency = "1 GHz"
+    elif(end_clr == 80):
+        upperBound = 10 ** 10
+        upperFrequency = "10 GHz"
+    elif(end_clr == 90):
+        upperBound = 10 ** 11
+        upperFrequency = "100 GHz"
+    elif(end_clr == 100):
+        upperBound = 10 ** 12
+        upperFrequency = "1 THz"
+    elif(end_clr == 110):
+        upperBound = 10 ** 13
+        upperFrequency = "10 THz"
 
-    with tab5:
-        st.bar_chart(data=selectedRows, x='Lower Frequency', y='Field', width=0, height=0, use_container_width=True)
+    tabForLowerBounds, tabForUpperBounds = st.tabs(["Lower Bound Frequencies", "Upper Bound Frequencies"])
 
-    with tab6:
+    with tabForLowerBounds:
+        selectedRows = df[(df["_lowerFrequency"] >= lowerBound) & (df["_lowerFrequency"] <= upperBound)]
+        if(lowerFrequency != upperFrequency):
+            st.subheader("You have selected the lower frequency records from " + lowerFrequency + " to " + upperFrequency)
+        else:
+            st.subheader("You have selected the lower frequency records in " + lowerFrequency)
+        
         fig = px.scatter(
-            selectedRows,
-            x="Lower Frequency",
-            y="Field",
-            size="Lower Frequency",
-            color="Location",
-            hover_name="Location",
-            log_x=True,
-            size_max=60,
-        )
-
+                selectedRows,
+                x="_lowerFrequency",
+                y="_term",
+                size="_lowerFrequency",
+                color="_term",
+                hover_name="_term",
+                log_x=True,
+                size_max=60,
+            )
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
+        st.bar_chart(data=selectedRows, x='_term', y='_lowerFrequency', width=0, height=0, use_container_width=True)
 
+    with tabForUpperBounds:
+        selectedRows = df[(df["_higherFrequency"] >= lowerBound) & (df["_higherFrequency"] <= upperBound)]
+        if(lowerFrequency != upperFrequency):
+            st.subheader("You have selected the upper frequency records from " + lowerFrequency + " to " + upperFrequency)
+        else:
+            st.subheader("You have selected the upper frequency records in " + lowerFrequency)
+        
+        fig = px.scatter(
+                selectedRows,
+                x="_higherFrequency",
+                y="_term",
+                size="_higherFrequency",
+                color="_term",
+                hover_name="_term",
+                log_x=True,
+                size_max=60,
+            )
+        st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
+        st.bar_chart(data=selectedRows, x='_term', y='_higherFrequency', width=0, height=0, use_container_width=True)
 
 with tab2:
     st.header("Frequency allocation based on filter")
-    location = df['Location'].unique()
-    field=df['Field'].unique()
-
+    dummy = []
+    dummy = np.append(dummy,"All")
+    term = np.append(dummy, df['_term'].unique())
+    
     translator = Translator()
-
     with st.form(key='salaryform'):
         col1,col2,col3, col4 = st.columns(4)
-        
         with col1:
             frequencyBands = st.selectbox('Frequency bands',(
                 '3 - 30 kHz',
@@ -68,7 +158,7 @@ with tab2:
                 '3 - 30 GHz',
                 '30 - 300 GHz'))
         with col2:
-            state = st.selectbox('Frequency table', options=list(location))
+            state = st.selectbox('Term', options=list(term))
         with col3:
             languageFromDataset = st.selectbox('Language', (
                 'Bangla',
@@ -89,8 +179,7 @@ with tab2:
                 'Spanish'
             ))
         with col4:
-            searchType = st.radio("Search Type", ("Application", "Alocation"))
-            check = st.checkbox("Compare (Select multiple frequency tables)")
+            searchType = st.radio("Status", ("primary", "secondary"))
             allocationOrientation = st.radio("Allocation orientation", ("Horizontal", "Vertical"))
             
         submit_salary = st.form_submit_button(label='Search')
@@ -152,32 +241,220 @@ with tab2:
         elif languageFromDataset == 'Spanish':
             lang = 'es'
         
+        if(state == "All"):
+            dataset = df[(df['_lowerFrequency'] >= lowerBound) & (df['_lowerFrequency'] <= upperBound) 
+                & (df['_status'] == searchType)]
+        else:
+            dataset = df[(df['_lowerFrequency'] >= lowerBound) & (df['_lowerFrequency'] <= upperBound) 
+                & (df['_term'] == state) & (df['_status'] == searchType)]
+    
+        if(len(dataset) == 0):
+            st.write("No data!")
+        else:
+            dataset['_term'] = dataset['_term'].apply(translator.translate, dest=lang).apply(getattr, args=('text',))
         
-        dataset = df[(df['Lower Frequency'] >= lowerBound) & (df['Lower Frequency'] <= upperBound) 
-            & (df['Location'] == state) & (df['Type'] == searchType)]
-        
-        dataset['Location'] = dataset['Location'].apply(translator.translate, dest=lang).apply(getattr, args=('text',))
-        dataset['Type'] = dataset['Type'].apply(translator.translate, dest=lang).apply(getattr, args=('text',))
-        dataset['Field'] = dataset['Field'].apply(translator.translate, dest=lang).apply(getattr, args=('text',))
-        dataset['Status'] = dataset['Status'].apply(translator.translate, dest=lang).apply(getattr, args=('text',))
-        st.write(dataset)
+            colors = [
+                "aqua",
+                "aquamarine",
+                "azure",
+                "beige",
+                "bisque",
+                "blanchedalmond",
+                "blue",
+                "blueviolet",
+                "brown",
+                "burlywood",
+                "cadetblue",
+                "chartreuse",
+                "chocolate",
+                "coral",
+                "cornflowerblue",
+                "cornsilk",
+                "crimson",
+                "cyan",
+                "darkblue",
+                "darkcyan",
+                "darkgoldenrod",
+                "darkgray",
+                "darkgreen",
+                "darkkhaki",
+                "darkmagenta",
+                "darkolivegreen",
+                "darkorange",
+                "darkorchid",
+                "darkred",
+                "darksalmon",
+                "darkseagreen",
+                "darkslateblue",
+                "darkslategray",
+                "darkturquoise",
+                "darkviolet",
+                "deeppink",
+                "deepskyblue",
+                "dimgray",
+                "dodgerblue",
+                "firebrick",
+                "floralwhite",
+                "forestgreen",
+                "fuchsia",
+                "gainsboro",
+                "ghostwhite",
+                "gold",
+                "goldenrod",
+                "gray",
+                "green",
+                "greenyellow",
+                "honeydew",
+                "hotpink",
+                "indianred",
+                "indigo",
+                "ivory",
+                "khaki",
+                "lavender",
+                "lavenderblush",
+                "lawngreen",
+                "lemonchiffon",
+                "lightblue",
+                "lightcoral",
+                "lightcyan",
+                "lightgoldenrodyellow",
+                "lightgreen",
+                "lightgrey",
+                "lightpink",
+                "lightsalmon",
+                "lightseagreen",
+                "lightskyblue",
+                "lightslategray",
+                "lightsteelblue",
+                "lightyellow",
+                "lime",
+                "limegreen",
+                "linen",
+                "magenta",
+                "maroon",
+                "mediumaquamarine",
+                "mediumblue",
+                "mediumorchid",
+                "mediumpurple",
+                "mediumseagreen",
+                "mediumslateblue",
+                "mediumspringgreen",
+                "mediumturquoise",
+                "mediumvioletred",
+                "midnightblue",
+                "mintcream",
+                "mistyrose",
+                "moccasin",
+                "navajowhite",
+                "navy",
+                "navyblue",
+                "oldlace",
+                "olive",
+                "olivedrab",
+                "orange",
+                "orangered",
+                "orchid",
+                "palegoldenrod",
+                "palegreen",
+                "paleturquoise",
+                "palevioletred",
+                "papayawhip",
+                "peachpuff",
+                "peru",
+                "pink",
+                "plum",
+                "powderblue",
+                "purple",
+                "red",
+                "rosybrown",
+                "royalblue",
+                "saddlebrown",
+                "salmon",
+                "sandybrown",
+                "seagreen",
+                "seashell",
+                "sienna",
+                "silver",
+                "skyblue",
+                "slateblue",
+                "slategray",
+                "snow",
+                "springgreen",
+                "steelblue",
+                "tan",
+                "teal",
+                "thistle",
+                "tomato",
+                "turquoise",
+                "violet",
+                "wheat",
+                "white",
+                "whitesmoke",
+                "yellow",
+                "yellowgreen",
+            ]
 
-        
+            html_string = []
+            if(allocationOrientation == "Horizontal"):
+                html_string = [""" 
+                    </div>
+                    <style>
+                    .ccc123 {
+                        width: 100%;
+                        overflow-x: auto;
+                        white-space: nowrap;
+                    }
+                    .ccc123 div {
+                        width:200px;
+                        height:150px;
+                        display:inline-block;
+                        line-height:2.5;
+                        padding:20px;
+                    }
+                    </style>
+                """
+                ]
+            else:
+                html_string = [""" 
+                    </div>
+                    <style>
+                    .ccc123 {
+                        height: 100%;
+                        display: flex;
+                        padding-bottom: 100px;
+                        margin-bottom: 100px;
+                        flex-wrap: wrap;
+                        align-content: center;
+                        flex-direction: row;
+                    }
+                    .ccc123 > div {
+                        width:200px;
+                        height:150px;
+                        display:inline-block;
+                        line-height:2.5;
+                        padding:20px;
+                    }
+                    </style>
+                """
+                ]
 
-        # st.bar_chart(data=dataset, x='Lower Frequency', y='Field', width=0, height=0, use_container_width=True)
+            html_string.append("<div class='ccc123'>")
 
-        # fig = px.scatter(
-        #     dataset,
-        #     x="Lower Frequency",
-        #     y="Field",
-        #     size="Lower Frequency",
-        #     color="Location",
-        #     hover_name="Location",
-        #     log_x=True,
-        #     size_max=60,
-        # )
-        # st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+            df2 = dataset.reset_index(drop=True)
 
+            for i in range(len(df2)):
+                html_string.append(
+                    f"""
+                <div style="background-color:{colors[i]};">
+                    <h5>{df2["_term"].loc[i]}</h5>
+                    <p>{df2["_lowerFrequency"].loc[i]} - {df2["_higherFrequency"].loc[i]}</p>
+                </div>
+                """
+                )
+            
+            
+            components.html("".join(html_string), height=200, scrolling=True)  # JavaScript works
+    
 with tab3:
    st.header("Statistics for experts")
    df_test = pd.read_csv('FP_KOS_2022.csv')
