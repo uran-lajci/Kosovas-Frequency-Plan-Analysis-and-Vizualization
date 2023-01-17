@@ -1,20 +1,20 @@
 def getLowerBoundAndUpperBound(frequencyBands):
     if frequencyBands == "3 - 30 kHz":
-        return [3, 30]
+        return [3*1000, 30*1000]
     elif frequencyBands == "30 - 300 kHz":
-        return [30, 300]
+        return [30*1000, 300*1000]
     elif frequencyBands == "300 kHz - 3 MHz":
-        return [300, 30000]
+        return [300*1000, 3*10**6]
     elif frequencyBands == "3 - 30 MHz":
-        return [30000, 300000]
+        return [3*10**6, 30*10**6]
     elif frequencyBands == "30 MHz - 300 MHz":
-        return [300000, 3000000]
+        return [30*10**6, 300*10**6]
     elif frequencyBands == "300 MHz - 3 GHz":
-        return [300000, 3000000]
+        return [300*10**6, 3*10**9]
     elif frequencyBands == "3 - 30 GHz":
-        return [3000000, 30000000]
+        return [3*10**9, 30*10**9]
     elif frequencyBands == "30 - 300 GHz":
-        return [30000000, 300000000]
+        return [30*10**9, 300*10**9]
 
 
 def getAbbreviationForLanguage(languageFromDataset):
