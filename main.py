@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import altair as alt
 import plotly.express as px
 import streamlit as st
 import re
@@ -37,8 +38,11 @@ with tabForFrequencySlider:
         else:
             st.subheader("You have selected the lower frequency records in " + lowerFrequency)
 
+        rowesInMHz = {}
+        rowesInMHz['_lowerFrequency'] = selectedRows['_lowerFrequency'] / 10 ** 6
+        rowesInMHz['_term'] = selectedRows["_term"]
         fig = px.scatter(
-                selectedRows,
+                rowesInMHz,
                 x="_lowerFrequency",
                 y="_term",
                 size="_lowerFrequency",
@@ -46,9 +50,25 @@ with tabForFrequencySlider:
                 hover_name="_term",
                 log_x=True,
                 size_max=60,)
+        fig.update_traces(marker=dict(symbol='square'))
+
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
-        st.bar_chart(data=selectedRows, x='_term', y='_lowerFrequency', width=0, height=0, use_container_width=True)
+        selectedRowsWithResetedIndexes = selectedRows.reset_index(drop=True)
+        newSelectedRows = []
+        for i in range(len(selectedRowsWithResetedIndexes)):
+            newSelectedRows.append(str(convertValues(selectedRowsWithResetedIndexes["_lowerFrequency"].loc[i])[0]) + \
+                 " " + str(convertValues(selectedRowsWithResetedIndexes["_lowerFrequency"].loc[i])[1]))
+
+        selectedRows['_lowerFrequency'] = newSelectedRows
+      
+        chart = alt.Chart(selectedRows).mark_square().encode(
+            x='_lowerFrequency',
+            y='_term',
+            color='_term',
+        ).interactive()
+        
+        st.altair_chart(chart)
 
     with tabForUpperBounds:
         selectedRows = df[(df["_higherFrequency"] >= lowerBound) & (df["_higherFrequency"] <= upperBound)]
@@ -56,8 +76,12 @@ with tabForFrequencySlider:
             st.subheader("You have selected the upper frequency records from " + lowerFrequency + " to " + upperFrequency)
         else:
             st.subheader("You have selected the upper frequency records in " + lowerFrequency)
+        
+        rowesInMHz = {}
+        rowesInMHz['_higherFrequency'] = selectedRows['_higherFrequency'] / 10 ** 6
+        rowesInMHz['_term'] = selectedRows["_term"]
         fig = px.scatter(
-                selectedRows,
+                rowesInMHz,
                 x="_higherFrequency",
                 y="_term",
                 size="_higherFrequency",
@@ -65,8 +89,24 @@ with tabForFrequencySlider:
                 hover_name="_term",
                 log_x=True,
                 size_max=60,)
+        fig.update_traces(marker=dict(symbol='square'))
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-        st.bar_chart(data=selectedRows, x='_term', y='_higherFrequency', width=0, height=0, use_container_width=True)
+
+        selectedRowsWithResetedIndexes = selectedRows.reset_index(drop=True)
+        newSelectedRows = []
+        for i in range(len(selectedRowsWithResetedIndexes)):
+            newSelectedRows.append(str(convertValues(selectedRowsWithResetedIndexes["_lowerFrequency"].loc[i])[0]) + \
+                 " " + str(convertValues(selectedRowsWithResetedIndexes["_lowerFrequency"].loc[i])[1]))
+
+        selectedRows['_lowerFrequency'] = newSelectedRows
+      
+        chart = alt.Chart(selectedRows).mark_square().encode(
+            x='_lowerFrequency',
+            y='_term',
+            color='_term',
+        ).interactive()
+        
+        st.altair_chart(chart)
 
     with tabForBothBounds:
         selectedRows = df[(df["_lowerFrequency"] >= lowerBound) & (df["_higherFrequency"] <= upperBound)]
@@ -75,15 +115,20 @@ with tabForFrequencySlider:
         else:
             st.subheader("You have selected the frequency records in " + lowerFrequency)
         
+        rowesInMHz = {}
+        rowesInMHz['_lowerFrequency'] = selectedRows['_lowerFrequency'] / 10 ** 6
+        rowesInMHz['_higherFrequency'] = selectedRows['_higherFrequency'] / 10 ** 6
+        rowesInMHz['_term'] = selectedRows["_term"]
+
         fig = px.scatter(
-            selectedRows,
+            rowesInMHz,
             x="_lowerFrequency",
             y="_higherFrequency",
             color="_term",
             hover_name="_term",
             log_x=True,
-            size_max=1400,
         )
+        fig.update_traces(marker=dict(symbol='square'))
         st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
 with tabForFrequencyFilter:

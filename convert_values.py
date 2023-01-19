@@ -1,14 +1,10 @@
 def convertValues(value):
-    # Conversion factors
     MHz = 10**6
     KHz = 10**3
     GHz = 10**9
     THz = 10**12
 
-    # Create empty lists to store the converted values
     data_new = 0
-
-    # print(value)
 
     if value >= THz:
         data_new = value/THz
