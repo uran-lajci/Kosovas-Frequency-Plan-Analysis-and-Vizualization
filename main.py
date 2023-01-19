@@ -188,13 +188,9 @@ with tabForFrequencyFilter:
                 <div style="background-color:{colors[i]};filter: invert(5);mix-blend-mode: difference;">
                     <h3>{translator.translate(datasetWithResetedIndexes["_term"].loc[i], dest=languageAbbreviation).text}</h3>
                     <p><b>
-                    {convertValues(datasetWithResetedIndexes["_lowerFrequency"].loc[i])[0]}
-
-                    {convertValues(datasetWithResetedIndexes["_lowerFrequency"].loc[i])[1]}
+                    {convertValuesAsString(datasetWithResetedIndexes["_lowerFrequency"].loc[i])}
                      - 
-                    {convertValues(datasetWithResetedIndexes["_higherFrequency"].loc[i])[0]}
-                    
-                    {convertValues(datasetWithResetedIndexes["_higherFrequency"].loc[i])[1]}
+                    {convertValuesAsString(datasetWithResetedIndexes["_higherFrequency"].loc[i])}                    
                     </b></p>
                 </div>""")
             
@@ -238,7 +234,19 @@ def statistics():
 
                 if len(freeFrequency)>0:
                     st.write("There are ", len(freeFrequency), " rows in this frequency")
-                    st.write(freeFrequency.drop(['_shortComments'],axis=1))
+                    datasetWithResetedIndexes = freeFrequency.reset_index(drop=True)
+                    newRowsLower = []
+                    for i in range(len(datasetWithResetedIndexes["_lowerFrequency"])):
+                        newRowsLower.append(convertValuesAsString(datasetWithResetedIndexes["_lowerFrequency"].loc[i]))
+                    
+                    newRowsHigher = []
+                    for i in range(len(datasetWithResetedIndexes["_higherFrequency"])):
+                        newRowsHigher.append(convertValuesAsString(datasetWithResetedIndexes["_higherFrequency"].loc[i]))
+
+                    datasetWithResetedIndexes["_lowerFrequency"] = newRowsLower
+                    datasetWithResetedIndexes["_higherFrequency"] = newRowsHigher
+
+                    st.write(datasetWithResetedIndexes.drop(['_shortComments'],axis=1))
                 else:
                     st.write("This frequency is free")
 
@@ -253,10 +261,26 @@ def statistics():
                 tabTable, tabPlot= st.tabs(["table", "plot"])
 
                 with tabTable:
-                    st.write(GroupByTerm.drop(['_shortComments'],axis=1))
+                    datasetWithResetedIndexes = GroupByTerm.reset_index(drop=True)
+                    newRowsLower = []
+                    for i in range(len(datasetWithResetedIndexes["_lowerFrequency"])):
+                        newRowsLower.append(convertValuesAsString(datasetWithResetedIndexes["_lowerFrequency"].loc[i]))
+                    
+                    newRowsHigher = []
+                    for i in range(len(datasetWithResetedIndexes["_higherFrequency"])):
+                        newRowsHigher.append(convertValuesAsString(datasetWithResetedIndexes["_higherFrequency"].loc[i]))
+
+                    datasetWithResetedIndexes["_lowerFrequency"] = newRowsLower
+                    datasetWithResetedIndexes["_higherFrequency"] = newRowsHigher
+
+                    st.table(datasetWithResetedIndexes.drop(['_shortComments'],axis=1))
                 with tabPlot:
+                    rowesInMHz = {}
+                    rowesInMHz['_lowerFrequency'] = GroupByTerm['_lowerFrequency'] / 10 ** 6
+                    rowesInMHz['_higherFrequency'] = GroupByTerm['_higherFrequency'] / 10 ** 6
+                    rowesInMHz['_status'] = GroupByTerm["_status"]
                     fig = px.scatter(
-                        GroupByTerm,
+                        rowesInMHz,
                         x="_lowerFrequency",
                         y="_status",
                         size="_lowerFrequency",
@@ -277,10 +301,27 @@ def statistics():
                 tabTable, tabPlot= st.tabs(["table", "plot"])
 
                 with tabTable:
-                    st.write(GroupByStatus.drop(['_shortComments'],axis=1))
+                    datasetWithResetedIndexes = GroupByStatus.reset_index(drop=True)
+                    newRowsLower = []
+                    for i in range(len(datasetWithResetedIndexes["_lowerFrequency"])):
+                        newRowsLower.append(convertValuesAsString(datasetWithResetedIndexes["_lowerFrequency"].loc[i]))
+                    
+                    newRowsHigher = []
+                    for i in range(len(datasetWithResetedIndexes["_higherFrequency"])):
+                        newRowsHigher.append(convertValuesAsString(datasetWithResetedIndexes["_higherFrequency"].loc[i]))
+
+                    datasetWithResetedIndexes["_lowerFrequency"] = newRowsLower
+                    datasetWithResetedIndexes["_higherFrequency"] = newRowsHigher
+
+                    st.table(datasetWithResetedIndexes.drop(['_shortComments'],axis=1))
+
                 with tabPlot:
+                    rowesInMHz = {}
+                    rowesInMHz['_lowerFrequency'] = GroupByStatus['_lowerFrequency'] / 10 ** 6
+                    rowesInMHz['_higherFrequency'] = GroupByStatus['_higherFrequency'] / 10 ** 6
+                    rowesInMHz['_term'] = GroupByStatus["_term"]
                     fig = px.scatter(
-                        GroupByStatus,
+                        rowesInMHz,
                         x="_lowerFrequency",
                         y="_term",
                         size="_lowerFrequency",
@@ -292,6 +333,7 @@ def statistics():
 
 with tabForStatistics:
     st.header("Statistics for experts") 
+            
     login, signup = st.tabs(["Login", "Signup"])
 
     def check_word_in_file(file_path, word):
@@ -302,28 +344,26 @@ with tabForStatistics:
         return False
 
     with login:
-        def handle_login():
-            username = st.text_input("Username", key="username")
-            password = st.text_input("Password", type="password", key="password")
-            if st.button('Login'):
-                if not all([username,password]):
-                    st.error("Username and password are required fields.")
-                else:
-                    file_path = 'usernames_and_passwords.txt'
-
-                    if check_word_in_file(file_path, username) and check_word_in_file(file_path, password):
-                        login_successful = True
-                    else:
-                        login_successful = False
-
-                    if login_successful:
-                        st.success("Welcome, {}!".format(username))
-                        statistics()
-                    else:
-                        st.error("Invalid username or password.")
-
+        login_successful = False
         st.title("Login Form")
-        handle_login()
+
+        username = st.text_input("Username", key="username")
+        password = st.text_input("Password", type="password", key="password")
+        
+        if not all([username,password]):
+            st.error("Username and password are required fields.")
+        else:
+            file_path = 'usernames_and_passwords.txt'
+            if check_word_in_file(file_path, username + ", Password:") and check_word_in_file(file_path, ": " + password):
+                login_successful = True
+            else:
+                login_successful = False
+
+        if login_successful:
+            st.success("Welcome, {}!".format(username))
+            statistics()
+        else:
+            st.error("Invalid username or password.")
 
     with signup:
         def handle_signup():
