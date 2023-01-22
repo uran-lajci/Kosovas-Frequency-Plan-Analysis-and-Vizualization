@@ -16,6 +16,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 tabForFrequencySlider, tabForFrequencyFilter, tabForStatistics, tabForAbout = st.tabs(["Frequency Slider","Frequency Filter", "Statistics", "About"])
 
 df = pd.read_csv('FP_KOS_2022.csv')
+df=df.rename(columns = {'_term':'service'})
 
 with tabForFrequencySlider:
     st.header("Frequency allocation based on slider")
@@ -40,14 +41,14 @@ with tabForFrequencySlider:
 
         rowesInMHz = {}
         rowesInMHz['_lowerFrequency'] = selectedRows['_lowerFrequency'] / 10 ** 6
-        rowesInMHz['_term'] = selectedRows["_term"]
+        rowesInMHz['service'] = selectedRows["service"]
         fig = px.scatter(
                 rowesInMHz,
                 x="_lowerFrequency",
-                y="_term",
+                y="service",
                 size="_lowerFrequency",
-                color="_term",
-                hover_name="_term",
+                color="service",
+                hover_name="service",
                 log_x=True,
                 size_max=60,)
         fig.update_traces(marker=dict(symbol='square'))
@@ -64,8 +65,8 @@ with tabForFrequencySlider:
       
         chart = alt.Chart(selectedRows).mark_square().encode(
             x='_lowerFrequency',
-            y='_term',
-            color='_term',
+            y='service',
+            color='service',
         ).interactive()
         
         st.altair_chart(chart)
@@ -79,14 +80,14 @@ with tabForFrequencySlider:
         
         rowesInMHz = {}
         rowesInMHz['_higherFrequency'] = selectedRows['_higherFrequency'] / 10 ** 6
-        rowesInMHz['_term'] = selectedRows["_term"]
+        rowesInMHz['service'] = selectedRows["service"]
         fig = px.scatter(
                 rowesInMHz,
                 x="_higherFrequency",
-                y="_term",
+                y="service",
                 size="_higherFrequency",
-                color="_term",
-                hover_name="_term",
+                color="service",
+                hover_name="service",
                 log_x=True,
                 size_max=60,)
         fig.update_traces(marker=dict(symbol='square'))
@@ -102,8 +103,8 @@ with tabForFrequencySlider:
       
         chart = alt.Chart(selectedRows).mark_square().encode(
             x='_lowerFrequency',
-            y='_term',
-            color='_term',
+            y='service',
+            color='service',
         ).interactive()
         
         st.altair_chart(chart)
@@ -118,14 +119,14 @@ with tabForFrequencySlider:
         rowesInMHz = {}
         rowesInMHz['_lowerFrequency'] = selectedRows['_lowerFrequency'] / 10 ** 6
         rowesInMHz['_higherFrequency'] = selectedRows['_higherFrequency'] / 10 ** 6
-        rowesInMHz['_term'] = selectedRows["_term"]
+        rowesInMHz['service'] = selectedRows["service"]
 
         fig = px.scatter(
             rowesInMHz,
             x="_lowerFrequency",
             y="_higherFrequency",
-            color="_term",
-            hover_name="_term",
+            color="service",
+            hover_name="service",
             log_x=True,
         )
         fig.update_traces(marker=dict(symbol='square'))
@@ -133,18 +134,18 @@ with tabForFrequencySlider:
 
 with tabForFrequencyFilter:
     st.header("Frequency allocation based on filter")
-    term = np.append("All", df['_term'].unique())
+    term = np.append("All", df['service'].unique())
     
     with st.form(key='frequencyFilter'):
         col1,col2,col3, col4 = st.columns(4)
         with col1:
             frequencyBands = st.selectbox('Frequency bands',(getFrequencyBounds()))
         with col2:
-            selectedTerm = st.selectbox('Term', options=list(term))
+            selectedTerm = st.selectbox('Service', options=list(term))
         with col3:
             selectedLanguage = st.selectbox('Language', (getLanguages()))
         with col4:
-            searchType = st.radio("Status", ("primary", "secondary"))
+            searchType = st.radio("Status", ("primary", "secondary","all"))
             graphOrientation = st.radio("Graph orientation", ("Horizontal", "Vertical"))
             
         submit = st.form_submit_button(label='Search')
@@ -154,20 +155,34 @@ with tabForFrequencyFilter:
         upperBound = getLowerBoundAndUpperBound(frequencyBands)[1]
 
         if(selectedTerm == "All"):
-            dataset = df[
+
+            if(searchType=='all'):
+                dataset = df[
                 (df['_lowerFrequency'] >= lowerBound) & 
-                (df['_higherFrequency'] <= upperBound) & 
-                (df['_status'] == searchType)]
+                (df['_higherFrequency'] <= upperBound)]
+            else:        
+                dataset = df[
+                    (df['_lowerFrequency'] >= lowerBound) & 
+                    (df['_higherFrequency'] <= upperBound) & 
+                    (df['_status'] == searchType)]
         else:
-            dataset = df[
+            if(searchType=='all'):
+                dataset = df[
                 (df['_lowerFrequency'] >= lowerBound) & 
                 (df['_higherFrequency'] <= upperBound) & 
-                (df['_term'] == selectedTerm) & 
-                (df['_status'] == searchType)]
+                (df['service'] == selectedTerm)]  
+            else:  
+                dataset = df[
+                    (df['_lowerFrequency'] >= lowerBound) & 
+                    (df['_higherFrequency'] <= upperBound) & 
+                    (df['service'] == selectedTerm) & 
+                    (df['_status'] == searchType)]
 
         if(len(dataset) == 0):
             st.write("No data!")
         else:
+            st.write("There are ", len(dataset), " rows in this frequency")
+                    
             colors = getColors()
 
             graphContainer = []
@@ -186,7 +201,7 @@ with tabForFrequencyFilter:
             for i in range(len(datasetWithResetedIndexes)):
                 graphContainer.append(f"""
                 <div style="background-color:{colors[i]};filter: invert(5);mix-blend-mode: difference;">
-                    <h3>{translator.translate(datasetWithResetedIndexes["_term"].loc[i], dest=languageAbbreviation).text}</h3>
+                    <h3>{translator.translate(datasetWithResetedIndexes["service"].loc[i], dest=languageAbbreviation).text}</h3>
                     <p><b>
                     {convertValuesAsString(datasetWithResetedIndexes["_lowerFrequency"].loc[i])}
                      - 
@@ -199,7 +214,7 @@ with tabForFrequencyFilter:
 def statistics():
     with st.form(key='statistics'):
             st.subheader("Search if a specific frequency is free!")
-            col1,col2,col3 = st.columns(3)
+            col1,col2 = st.columns(2)
             
             with col1:
                 number = st.number_input('Insert a number')  
@@ -208,29 +223,29 @@ def statistics():
                     'KHz',
                     'MHz',
                     'GHz',))
-            with col3:
-                frequency = st.selectbox('Higher/lower',(
-                    'Lower Frequency',
-                    'Higher Frequency',))
+            # with col3:
+            #     frequency = st.selectbox('Higher/lower',(
+            #         'Lower Frequency',
+            #         'Higher Frequency',))
             
             submit_search = st.form_submit_button(label='Search')
 
             freeFrequency=[]
             if submit_search:
-                if frequency=='Lower Frequency':
-                    if frequencyUnit =='KHz':
-                        freeFrequency = df[(df["_lowerFrequency"] == number*1000)]
-                    elif frequencyUnit=='MHz':
-                        freeFrequency = df[(df["_lowerFrequency"] == number*1000000)]
-                    elif frequencyUnit=='GHz':
-                        freeFrequency = df[(df["_lowerFrequency"] == number*1000000000)]
-                else:
-                    if frequencyUnit =='KHz':
-                        freeFrequency = df[(df["_higherFrequency"] == number*1000)]
-                    elif frequencyUnit=='MHz':
-                        freeFrequency = df[(df["_higherFrequency"] == number*1000000)]
-                    elif frequencyUnit=='GHz':
-                        freeFrequency = df[(df["_higherFrequency"] == number*1000000000)]
+                #if frequency=='Lower Frequency':
+                if frequencyUnit =='KHz':
+                        freeFrequency = df[(df["_lowerFrequency"] <= number*1000)&(df["_higherFrequency"] >= number*1000)]
+                elif frequencyUnit=='MHz':
+                        freeFrequency = df[(df["_lowerFrequency"] <= number*1000000)&(df["_higherFrequency"] >= number*1000000)]
+                elif frequencyUnit=='GHz':
+                        freeFrequency = df[(df["_lowerFrequency"] <= number*1000000000)&(df["_higherFrequency"] >= number*1000000)]
+                # else:
+                #     if frequencyUnit =='KHz':
+                #         freeFrequency = df[(df["_higherFrequency"] == number*1000)]
+                #     elif frequencyUnit=='MHz':
+                #         freeFrequency = df[(df["_higherFrequency"] == number*1000000)]
+                #     elif frequencyUnit=='GHz':
+                #         freeFrequency = df[(df["_higherFrequency"] == number*1000000000)]
 
                 if len(freeFrequency)>0:
                     st.write("There are ", len(freeFrequency), " rows in this frequency")
@@ -251,13 +266,13 @@ def statistics():
                     st.write("This frequency is free")
 
     with st.form(key='statistics_groupByTerm'):
-            st.subheader("Group by Frequency Term")
-            term=df['_term'].unique()
-            frequencyTerm = st.selectbox('Frequency Term',(term))
+            st.subheader("Group by Frequency Service")
+            term=df['service'].unique()
+            frequencyTerm = st.selectbox('Frequency Service',(term))
             submit_search = st.form_submit_button(label='Search')
 
             if submit_search:
-                GroupByTerm = df[(df["_term"] == frequencyTerm)]
+                GroupByTerm = df[(df["service"] == frequencyTerm)]
                 tabTable, tabPlot= st.tabs(["table", "plot"])
 
                 with tabTable:
@@ -319,13 +334,13 @@ def statistics():
                     rowesInMHz = {}
                     rowesInMHz['_lowerFrequency'] = GroupByStatus['_lowerFrequency'] / 10 ** 6
                     rowesInMHz['_higherFrequency'] = GroupByStatus['_higherFrequency'] / 10 ** 6
-                    rowesInMHz['_term'] = GroupByStatus["_term"]
+                    rowesInMHz['service'] = GroupByStatus["service"]
                     fig = px.scatter(
                         rowesInMHz,
                         x="_lowerFrequency",
-                        y="_term",
+                        y="service",
                         size="_lowerFrequency",
-                        color="_term",
+                        color="service",
                         hover_name="_higherFrequency",
                         log_x=True,
                         size_max=60,)
