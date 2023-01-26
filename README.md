@@ -2,7 +2,7 @@
 
 Ky projekt eshte zhvilluar ne kuader te lendes Pregaditja dhe Vizualizimi i te Dhenave, lende e semestrit te pare ne master ne drejtimin Inxhinieri Kompjuterike dhe Sofuterike.
 
-Projekti eshte zhvilluar nga Elvir Misini dhe Uran Lajci.
+Projekti eshte zhvilluar nga **Elvir Misini dhe Uran Lajci**.
 
 Per te ekzekutuar kodin fillimisht duhet te ekzekutojm komanden ne terminal:
 
