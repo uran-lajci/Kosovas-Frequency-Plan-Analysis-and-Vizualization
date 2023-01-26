@@ -4,7 +4,22 @@ Ky projekt eshte zhvilluar ne kuader te lendes Pregaditja dhe Vizualizimi i te D
 
 Projekti eshte zhvilluar nga Elvir Misini dhe Uran Lajci.
 
-Per te ekzekutuar kodin duhet te shkojme te klasa main.py dhe te shenojme komanden streamlit run main.py
+Per te ekzekutuar kodin fillimisht duhet te ekzekutojm komanden ne terminal:
+
+```python
+pip install -r requirements.txt
+```
+
+
+e me pas duhet te shkojme te klasa main.py dhe te shenojme komanden
+```python
+streamlit run main.py
+```
+ose  
+```python
+python -m streamlit run .\main.py
+```
+dhe me pas vazhdon me eksekutimin e kodit.
 ![image](https://user-images.githubusercontent.com/117693854/214911672-0bcd4740-5ce4-4e91-abfb-66445465dd06.png)
 
 Librarite te cilat duhet ti instaloni para se ta ekzekutoni klasen main jane
