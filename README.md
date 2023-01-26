@@ -2,6 +2,8 @@
 
 Ky projekt eshte zhvilluar ne kuader te lendes Pregaditja dhe Vizualizimi i te Dhenave, lende e semestrit te pare ne master ne drejtimin Inxhinieri Kompjuterike dhe Sofuterike.
 
+Projekti eshte zhvilluar nga Elvir Misini dhe Uran Lajci.
+
 Per te ekzekutuar kodin duhet te shkojme te klasa main.py dhe te shenojme komanden streamlit run main.py
 ![image](https://user-images.githubusercontent.com/117693854/214911672-0bcd4740-5ce4-4e91-abfb-66445465dd06.png)
 
