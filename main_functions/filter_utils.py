@@ -1,97 +1,95 @@
-def getLowerBoundAndUpperBound(frequencyBands):
-    if frequencyBands == "3 - 30 kHz":
-        return [3*1000, 30*1000]
-    elif frequencyBands == "30 - 300 kHz":
-        return [30*1000, 300*1000]
-    elif frequencyBands == "300 kHz - 3 MHz":
-        return [300*1000, 3*10**6]
-    elif frequencyBands == "3 - 30 MHz":
-        return [3*10**6, 30*10**6]
-    elif frequencyBands == "30 MHz - 300 MHz":
-        return [30*10**6, 300*10**6]
-    elif frequencyBands == "300 MHz - 3 GHz":
-        return [300*10**6, 3*10**9]
-    elif frequencyBands == "3 - 30 GHz":
-        return [3*10**9, 30*10**9]
-    elif frequencyBands == "30 - 300 GHz":
-        return [30*10**9, 300*10**9]
+def getLowerBoundAndUpperBound(frequency_bands):
+    freq_dict = {
+        "3 - 30 kHz": [3*1000, 30*1000],
+        "30 - 300 kHz": [30*1000, 300*1000],
+        "300 kHz - 3 MHz": [300*1000, 3*10**6],
+        "3 - 30 MHz": [3*10**6, 30*10**6],
+        "30 MHz - 300 MHz": [30*10**6, 300*10**6],
+        "300 MHz - 3 GHz": [300*10**6, 3*10**9],
+        "3 - 30 GHz": [3*10**9, 30*10**9],
+        "30 - 300 GHz": [30*10**9, 300*10**9]
+    }
 
+    if frequency_bands in freq_dict:
+        return freq_dict[frequency_bands]
+    else:
+        return None
 
-def getAbbreviationForLanguage(languageFromDataset):
-    if languageFromDataset == 'English':
-        return 'en'
-    elif languageFromDataset == 'Albanian':
-        return 'sq'
-    elif languageFromDataset == 'Afrikaans':
-        return 'af'
-    elif languageFromDataset == 'Amharic':
-        return 'am'
-    elif languageFromDataset == 'Arabic':
-        return 'ar'
-    elif languageFromDataset == 'Armenian':
-        return 'hy'
-    elif languageFromDataset == 'Azerbaijani':
-        return 'az'
-    elif languageFromDataset == 'Basque':
-        return 'eu'
-    elif languageFromDataset == 'Belarusian':
-        return 'be'
-    elif languageFromDataset == 'Bengali':
-        return 'bn'
-    elif languageFromDataset == 'Bosnian':
-        return 'bs'
-    elif languageFromDataset == 'Bulgarian':
-        return 'bg'
-    elif languageFromDataset == 'Chinese':
-        return 'zh-CN'
-    elif languageFromDataset == 'Croatian':
-        return 'hr'
-    elif languageFromDataset == 'Danish':
-        return'da'
-    elif languageFromDataset == 'Dutch':
-        return 'nl'
-    elif languageFromDataset == 'Estonian':
-        return 'et'
-    elif languageFromDataset == 'Filipino':
-        return 'tl'
-    elif languageFromDataset == 'French':
-        return 'fr'
-    elif languageFromDataset == 'German':
-        return 'de'
-    elif languageFromDataset == 'Italian':
-        return 'it'
-    elif languageFromDataset == 'Japanese':
-        return 'ja'
-    elif languageFromDataset == 'Korean':
-        return 'ko'
-    elif languageFromDataset == 'Portuguese':
-        return 'pt'
-    elif languageFromDataset == 'Russian':
-        return 'ru'
-    elif languageFromDataset == 'Spanish':
-        return 'es'
-    elif languageFromDataset == 'Turkish':
-        return 'tr'
-    elif languageFromDataset == 'Urdu':
-        return 'ur'
-    
+def getAbbreviationForLanguage(language_from_dataset):
+    language_dict = {
+        'English': 'en',
+        'Albanian': 'sq',
+        'Afrikaans': 'af',
+        'Amharic': 'am',
+        'Arabic': 'ar',
+        'Armenian': 'hy',
+        'Azerbaijani': 'az',
+        'Basque': 'eu',
+        'Belarusian': 'be',
+        'Bengali': 'bn',
+        'Bosnian': 'bs',
+        'Bulgarian': 'bg',
+        'Chinese': 'zh-CN',
+        'Croatian': 'hr',
+        'Danish': 'da',
+        'Dutch': 'nl',
+        'Estonian': 'et',
+        'Filipino': 'tl',
+        'French': 'fr',
+        'German': 'de',
+        'Italian': 'it',
+        'Japanese': 'ja',
+        'Korean': 'ko',
+        'Portuguese': 'pt',
+        'Russian': 'ru',
+        'Spanish': 'es',
+        'Turkish': 'tr',
+        'Urdu': 'ur'
+    }
+    return language_dict.get(language_from_dataset)
+
 def getFrequencyBounds():
     return [
         '3 - 30 kHz',
-                '30 - 300 kHz',
-                '300 kHz - 3 MHz',
-                '3 - 30 MHz',
-                '30 MHz - 300 MHz',
-                '300 MHz - 3 GHz',
-                '3 - 30 GHz',
-                '30 - 300 GHz']
+        '30 - 300 kHz',
+        '300 kHz - 3 MHz',
+        '3 - 30 MHz',
+        '30 MHz - 300 MHz',
+        '300 MHz - 3 GHz',
+        '3 - 30 GHz',
+        '30 - 300 GHz'
+    ]
 
 def getLanguages():
     return [
         'English',
-        'Albanian', 'Afrikaans','Amharic','Arabic','Armenian','Azerbaijani','Basque','Belarusian'
-    ,'Bengali','Bosnian','Bulgarian','Chinese','Croatian','Danish','Dutch','Estonian','Filipino','French'
-    ,'German','Italian','Japanese','Korean','Portuguese','Russian','Spanish','Turkish','Urdu'
+        'Albanian',
+        'Afrikaans',
+        'Amharic',
+        'Arabic',
+        'Armenian',
+        'Azerbaijani',
+        'Basque',
+        'Belarusian',
+        'Bengali',
+        'Bosnian',
+        'Bulgarian',
+        'Chinese',
+        'Croatian',
+        'Danish',
+        'Dutch',
+        'Estonian',
+        'Filipino',
+        'French',
+        'German',
+        'Italian',
+        'Japanese',
+        'Korean',
+        'Portuguese',
+        'Russian',
+        'Spanish',
+        'Turkish',
+        'Urdu'
     ]
 
 def getColors():
