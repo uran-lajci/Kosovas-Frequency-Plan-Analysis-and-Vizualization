@@ -1,6 +1,7 @@
 from utils.general_utils import *
 
 import streamlit as st
+import hashlib
 
 def isLogedIn():
     login_successful = False
@@ -13,7 +14,9 @@ def isLogedIn():
         st.error("Username and password are required fields.")
     else:
         file_path = 'authentication/usernames_and_passwords.txt'
-        if check_word_in_file(file_path, username + ", Password:") and check_word_in_file(file_path, ": " + password):
+        hashed_password = hashlib.sha256(("salt" + password).encode()).hexdigest()
+
+        if check_word_in_file(file_path, username + ", Password:") and check_word_in_file(file_path, ": " + hashed_password):
             login_successful = True
         else:
             login_successful = False

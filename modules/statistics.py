@@ -7,136 +7,70 @@ from authentication.signup import *
 import streamlit as st
 import plotly.express as px
 
-def statistics(dataset):
-    with st.form(key='statistics'):
-        st.subheader("Search if a specific frequency is free!")
-        col1, col2 = st.columns(2)
-        with col1:
-            number = st.number_input('Insert a number')
-        with col2:
-            frequency_unit = st.selectbox('Frequency Units', (
-                'KHz',
-                'MHz',
-                'GHz',
-            ))
+def getFreeFrequencyTab(dataset):
+    st.subheader("Search if a specific frequency is free!")
+    col1, col2 = st.columns(2)
+    with col1:
+        search_frequency = st.number_input('Insert a frequency')
+    with col2:
+        frequency_scale = st.selectbox('Frequency Units', (
+            'KHz',
+            'MHz',
+            'GHz',
+        ))
+    submit_search = st.form_submit_button(label='Search')
 
-        submit_search = st.form_submit_button(label='Search')
+    if submit_search:
+        search_frequency_hz = convertToHz(search_frequency, frequency_scale)
+        free_frequency = dataset[(dataset["_lowerFrequency"] <= search_frequency_hz) & (dataset["_higherFrequency"] >= search_frequency_hz)]
 
-        free_frequency = []
-        if submit_search:
-            if frequency_unit == 'KHz':
-                free_frequency = dataset[(dataset["_lowerFrequency"] <= number * 1000) & (dataset["_higherFrequency"] >= number * 1000)]
-            elif frequency_unit == 'MHz':
-                free_frequency = dataset[(dataset["_lowerFrequency"] <= number * 1000000) & (dataset["_higherFrequency"] >= number * 1000000)]
-            elif frequency_unit == 'GHz':
-                free_frequency = dataset[(dataset["_lowerFrequency"] <= number * 1000000000) & (dataset["_higherFrequency"] >= number * 1000000)]
+        if len(free_frequency) > 0:
+            st.write(f"There are {len(free_frequency)} rows in this frequency")
+            st.write(free_frequency.to_string(index=False))
+        else:
+            st.write("This frequency is free")
 
-            if len(free_frequency) > 0:
-                st.write("There are ", len(free_frequency), " rows in this frequency")
-                dataset_with_reseted_indexes = free_frequency.reset_index(drop=True)
-                new_rows_lower = []
-                for i in range(len(dataset_with_reseted_indexes["_lowerFrequency"])):
-                    new_rows_lower.append(convertValuesAsString(dataset_with_reseted_indexes["_lowerFrequency"].loc[i]))
+def getGroupedBy(dataset, group_by_col, frequency_col):
+    st.subheader(f"Group by Frequency {group_by_col.capitalize()}")
+    unique_group_by = dataset[group_by_col].unique()
+    frequency_group_by = st.selectbox(f'Frequency {group_by_col.capitalize()}', unique_group_by)
+    submit_search = st.form_submit_button(label='Search')
 
-                new_rows_higher = []
-                for i in range(len(dataset_with_reseted_indexes["_higherFrequency"])):
-                    new_rows_higher.append(convertValuesAsString(dataset_with_reseted_indexes["_higherFrequency"].loc[i]))
+    if submit_search:
+        group_by_freq = dataset[dataset[group_by_col] == frequency_group_by]
+        tabTable, tabPlot = st.tabs(["table", "plot"])
 
-                dataset_with_reseted_indexes["_lowerFrequency"] = new_rows_lower
-                dataset_with_reseted_indexes["_higherFrequency"] = new_rows_higher
+        with tabTable:
+            dataset_with_reseted_indexes = group_by_freq.reset_index(drop=True)
+            dataset_with_reseted_indexes["_lowerFrequency"] = [convertFrequencyToString(val) for val in dataset_with_reseted_indexes["_lowerFrequency"]]
+            dataset_with_reseted_indexes["_higherFrequency"] = [convertFrequencyToString(val) for val in dataset_with_reseted_indexes["_higherFrequency"]]
+            st.table(dataset_with_reseted_indexes.drop(['_shortComments'], axis=1))
 
-                st.write(dataset_with_reseted_indexes.drop(['_shortComments'], axis=1))
-            else:
-                st.write("This frequency is free")
+        with tabPlot:
+            fig = px.scatter(
+                group_by_freq,
+                x="_lowerFrequency",
+                y=frequency_col,
+                size="_lowerFrequency",
+                color=frequency_col,
+                hover_name="_higherFrequency",
+                log_x=True,
+                size_max=60,
+            )
+            st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
-    with st.form(key='statistics_groupByTerm'):
-        st.subheader("Group by Frequency Service")
-        term = dataset['service'].unique()
-        frequency_term = st.selectbox('Frequency Service', term)
-        submit_search = st.form_submit_button(label='Search')
-
-        if submit_search:
-            group_by_term = dataset[(dataset["service"] == frequency_term)]
-            tabTable, tabPlot = st.tabs(["table", "plot"])
-
-            with tabTable:
-                dataset_with_reseted_indexes = group_by_term.reset_index(drop=True)
-                new_rows_lower = []
-                for i in range(len(dataset_with_reseted_indexes["_lowerFrequency"])):
-                    new_rows_lower.append(convertValuesAsString(dataset_with_reseted_indexes["_lowerFrequency"].loc[i]))
-
-                new_rows_higher = []
-                for i in range(len(dataset_with_reseted_indexes["_higherFrequency"])):
-                    new_rows_higher.append(convertValuesAsString(dataset_with_reseted_indexes["_higherFrequency"].loc[i]))
-
-                dataset_with_reseted_indexes["_lowerFrequency"] = new_rows_lower
-                dataset_with_reseted_indexes["_higherFrequency"] = new_rows_higher
-
-                st.table(dataset_with_reseted_indexes.drop(['_shortComments'], axis=1))
-
-            with tabPlot:
-                rowes_in_MHz = {}
-                rowes_in_MHz['_lowerFrequency'] = group_by_term['_lowerFrequency'] / 10 ** 6
-                rowes_in_MHz['_higherFrequency'] = group_by_term['_higherFrequency'] / 10 ** 6
-                rowes_in_MHz['_status'] = group_by_term["_status"]
-                fig = px.scatter(
-                    rowes_in_MHz,
-                    x="_lowerFrequency",
-                    y="_status",
-                    size="_lowerFrequency",
-                    color="_lowerFrequency",
-                    hover_name="_status",
-                    log_x=True,
-                    size_max=60,
-                )
-                st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-
-    with st.form(key='statistics_groupByStatus'):
-        st.subheader("Group by Frequency Status")        
-        status = dataset['_status'].unique()
-        frequency_status = st.selectbox('Frequency Status', (status))
-        submit_search = st.form_submit_button(label='Search')
-
-        if submit_search:
-            group_by_status = dataset[(dataset["_status"] == frequency_status)]
-            tabTable, tabPlot = st.tabs(["table", "plot"])
-
-            with tabTable:
-                dataset_with_reseted_indexes = group_by_status.reset_index(drop=True)
-                new_rows_lower = []
-                for i in range(len(dataset_with_reseted_indexes["_lowerFrequency"])):
-                    new_rows_lower.append(convertValuesAsString(dataset_with_reseted_indexes["_lowerFrequency"].loc[i]))
-                new_rows_higher = []
-                for i in range(len(dataset_with_reseted_indexes["_higherFrequency"])):
-                    new_rows_higher.append(convertValuesAsString(dataset_with_reseted_indexes["_higherFrequency"].loc[i]))
-
-                dataset_with_reseted_indexes["_lowerFrequency"] = new_rows_lower
-                dataset_with_reseted_indexes["_higherFrequency"] = new_rows_higher
-
-                st.table(dataset_with_reseted_indexes.drop(['_shortComments'], axis=1))
-
-            with tabPlot:
-                rowes_in_MHz = {}
-                rowes_in_MHz['_lowerFrequency'] = group_by_status['_lowerFrequency'] / 10 ** 6
-                rowes_in_MHz['_higherFrequency'] = group_by_status['_higherFrequency'] / 10 ** 6
-                rowes_in_MHz['service'] = group_by_status["service"]
-                fig = px.scatter(
-                    rowes_in_MHz,
-                    x="_lowerFrequency",
-                    y="service",
-                    size="_lowerFrequency",
-                    color="service",
-                    hover_name="_higherFrequency",
-                    log_x=True,
-                    size_max=60,)
-                st.plotly_chart(fig, theme="streamlit", use_container_width=True)
-
-def getStatistics(df):
+    
+def getStatistics(dataset):
     st.header("Statistics for experts")
     login, signup = st.tabs(["Login", "Signup"])
 
     with login:
         if isLogedIn() == True:
-            statistics(df)
+            with st.form(key='statistics'):
+                getFreeFrequencyTab(dataset)
+            with st.form(key='statistics_groupByTerm'):
+                getGroupedBy(dataset, "service", "_status")
+            with st.form(key='statistics_groupByStatus'):                
+                getGroupedBy(dataset, "_status", "service")
     with signup:
         getSignup()

@@ -21,3 +21,21 @@ def check_word_in_file(file_path, word):
         if re.search(word, file_contents):
             return True
     return False
+
+def convertToHz(frequency, frequency_scale):
+    scale_factors = {
+        'KHz': 1e3,
+        'MHz': 1e6,
+        'GHz': 1e9
+    }
+    return frequency * scale_factors[frequency_scale]
+
+def convertFrequencyToString(frequency):
+    if frequency < 1000:
+        return f"{frequency:.0f} Hz"
+    elif frequency < 1e6:
+        return f"{frequency/1e3:.1f} kHz"
+    elif frequency < 1e9:
+        return f"{frequency/1e6:.3f} MHz"
+    else:
+        return f"{frequency/1e9:.6f} GHz"

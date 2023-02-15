@@ -1,6 +1,7 @@
 from utils.general_utils import *
 
 import streamlit as st
+import hashlib
 
 def getSignup():
     st.title("Signup Form")
@@ -21,8 +22,9 @@ def getSignup():
             signup_successful = True
 
         if signup_successful:
-            with open("usernames_and_passwords.txt", "a") as f:
-                f.write("\nUsername: {}, Password: {}".format(username, password))
+            with open("authentication/usernames_and_passwords.txt", "a") as f:
+                hashed_password = hashlib.sha256(("salt" + password).encode()).hexdigest()
+                f.write("\nUsername: {}, Password: {}".format(username, hashed_password))
             st.success("Account created for {}!".format(username))
         else:
             st.error("Sorry, there was a problem creating the account.")

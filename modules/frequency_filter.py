@@ -25,35 +25,32 @@ def getFrequencyFilter(dataset):
         submit = st.form_submit_button(label='Search')
 
     if submit:
-        lower_bound = getLowerBoundAndUpperBound(frequency_bands)[0]
-        upper_bound = getLowerBoundAndUpperBound(frequency_bands)[1]
+        lower_bound, upper_bound = getLowerBoundAndUpperBound(frequency_bands)
 
         if selected_term == "All":
             if search_type == 'all':
-                dataset = dataset[(dataset['_lowerFrequency'] >= lower_bound) & 
-                             (dataset['_higherFrequency'] <= upper_bound)]
+                dataset_filtered = dataset[(dataset['_lowerFrequency'] >= lower_bound) & 
+                                           (dataset['_higherFrequency'] <= upper_bound)]
             else:        
-                dataset = dataset[(dataset['_lowerFrequency'] >= lower_bound) & 
-                             (dataset['_higherFrequency'] <= upper_bound) & 
-                             (dataset['_status'] == search_type)]
+                dataset_filtered = dataset[(dataset['_lowerFrequency'] >= lower_bound) & 
+                                           (dataset['_higherFrequency'] <= upper_bound) & 
+                                           (dataset['_status'] == search_type)]
         else:
             if search_type == 'all':
-                dataset = dataset[(dataset['_lowerFrequency'] >= lower_bound) & 
-                             (dataset['_higherFrequency'] <= upper_bound) & 
-                             (dataset['service'] == selected_term)]  
+                dataset_filtered = dataset[(dataset['_lowerFrequency'] >= lower_bound) & 
+                                           (dataset['_higherFrequency'] <= upper_bound) & 
+                                           (dataset['service'] == selected_term)]  
             else:  
-                dataset = dataset[(dataset['_lowerFrequency'] >= lower_bound) & 
-                             (dataset['_higherFrequency'] <= upper_bound) & 
-                             (dataset['service'] == selected_term) & 
-                             (dataset['_status'] == search_type)]
+                dataset_filtered = dataset[(dataset['_lowerFrequency'] >= lower_bound) & 
+                                           (dataset['_higherFrequency'] <= upper_bound) & 
+                                           (dataset['service'] == selected_term) & 
+                                           (dataset['_status'] == search_type)]
 
-        if len(dataset) == 0:
+        if len(dataset_filtered) == 0:
             st.write("No data!")
         else:
-            st.write("There are ", len(dataset), " rows in this frequency")
-                    
+            st.write("There are ", len(dataset_filtered), " rows in this frequency")
             colors = getColors()
-
             graph_container = []
             if graph_orientation == "Horizontal":
                 with open("./css/horizontal_styles.css") as style:
@@ -63,19 +60,21 @@ def getFrequencyFilter(dataset):
                     graph_container = [f""" </div> <style>{style.read()}</style>"""]
 
             graph_container.append("<div class='containerSlider'>")
-            dataset_with_reseted_indexes = dataset.reset_index(drop=True)
+            dataset_filtered = dataset_filtered.reset_index(drop=True)
             translator = Translator()
             language_abbreviation = getAbbreviationForLanguage(selected_language)
 
-            for i in range(len(dataset_with_reseted_indexes)):
+            for i in range(len(dataset_filtered)):
+                service_name = dataset_filtered["service"].loc[i]
+                lower_frequency = convertValuesAsString(dataset_filtered["_lowerFrequency"].loc[i])
+                higher_frequency = convertValuesAsString(dataset_filtered["_higherFrequency"].loc[i])
+                service_name_translated = translator.translate(service_name, dest=language_abbreviation).text
+
                 graph_container.append(f"""
                 <div style="background-color:{colors[i]};filter: invert(5);mix-blend-mode: difference;">
-                    <h3>{translator.translate(dataset_with_reseted_indexes["service"].loc[i], dest=language_abbreviation).text}</h3>
-                    <p><b>
-                    {convertValuesAsString(dataset_with_reseted_indexes["_lowerFrequency"].loc[i])}
-                     - 
-                    {convertValuesAsString(dataset_with_reseted_indexes["_higherFrequency"].loc[i])}                    
-                    </b></p>
+                    <h3>{service_name_translated}</h3>
+                    <p><b>{lower_frequency} - {higher_frequency}</b></p>
                 </div>""")
             
+            graph_container.append("</div>")
             components.html("".join(graph_container), height=200, scrolling=True)
