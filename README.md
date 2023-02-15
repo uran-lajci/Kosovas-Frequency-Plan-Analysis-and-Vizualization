@@ -44,5 +44,5 @@ Disa nga pjeset tjera te aplikacionit
 
 ![image](https://user-images.githubusercontent.com/117693854/214913391-ce66c683-27c1-489d-9e0a-3213f8295047.png)
 
-![image](https://user-images.githubusercontent.com/117693854/214913468-323d8030-c68c-4def-ad10-634a9b32f309.png)
+![image](https://user-images.githubusercontent.com/117693854/218906948-043c6c15-1ae6-4210-9386-3e201a3fd8dd.png)
 
