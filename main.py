@@ -25,4 +25,4 @@ with tabForStatistics:
     getStatistics(dataset)
 
 with tabForAbout:
-    getAbout()
+    getAboutPage()

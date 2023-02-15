@@ -1,6 +1,6 @@
 import streamlit as st
 
-def getAbout():
+def getAboutPage():
     st.header("About")
     st.subheader("Përshkrimi i projektit")
     st.markdown('Ky projekt është zhvilluar në kuadër të Universitetit të Prishtinës të nivelit master departmenti Inxhinieri Kompjuterike për digjitalizim të sherbimeve të ARKEP: Vizualizimi interaktiv ne Ueb i te dhenave te planit frekuencor. Të dhënat janë marrë nga ARKEP dhe janë shfytëzuar gjatë zhvillimit dhe testimit të programit.')

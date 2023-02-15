@@ -30,7 +30,7 @@ def getFreeFrequencyTab(dataset):
         else:
             st.write("This frequency is free")
 
-def getGroupedBy(dataset, group_by_col, frequency_col):
+def getGroupedData(dataset, group_by_col, frequency_col):
     st.subheader(f"Group by Frequency {group_by_col.capitalize()}")
     unique_group_by = dataset[group_by_col].unique()
     frequency_group_by = st.selectbox(f'Frequency {group_by_col.capitalize()}', unique_group_by)
@@ -65,12 +65,12 @@ def getStatistics(dataset):
     login, signup = st.tabs(["Login", "Signup"])
 
     with login:
-        if isLogedIn() == True:
+        if loginForm() == True:
             with st.form(key='statistics'):
                 getFreeFrequencyTab(dataset)
             with st.form(key='statistics_groupByTerm'):
-                getGroupedBy(dataset, "service", "_status")
+                getGroupedData(dataset, "service", "_status")
             with st.form(key='statistics_groupByStatus'):                
-                getGroupedBy(dataset, "_status", "service")
+                getGroupedData(dataset, "_status", "service")
     with signup:
-        getSignup()
+        getSignupForm()

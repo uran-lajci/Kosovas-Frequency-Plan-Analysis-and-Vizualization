@@ -6,10 +6,10 @@ import streamlit as st
 import plotly.express as px
 import altair as alt
 
-def getBounds(df, start_slider, end_slider, frequency):
+def getBounds(dataset, start_slider, end_slider, frequency):
     lower_bound, lower_frequency = getLowerBoundAndFrequency(start_slider)
     upper_bound, upper_frequency = getUpperBoundAndFrequency(end_slider)
-    selected_rows = df[(df[frequency] >= lower_bound) & (df[frequency] <= upper_bound)]
+    selected_rows = dataset[(dataset[frequency] >= lower_bound) & (dataset[frequency] <= upper_bound)]
 
     if lower_frequency != upper_frequency:
         st.subheader(f"You have selected the upper frequency records from {lower_frequency} to {upper_frequency}")
@@ -50,10 +50,10 @@ def generate_charts(selected_rows, frequency):
 
     st.altair_chart(chart)
 
-def getBothBounds(df, start_slider, end_slider):
+def getUpperAndLowerBounds(dataset, start_slider, end_slider):
     lower_bound, lower_frequency = getLowerBoundAndFrequency(start_slider)
     upper_bound, upper_frequency = getUpperBoundAndFrequency(end_slider)
-    filtered_df = df[(df["_lowerFrequency"] >= lower_bound) & (df["_higherFrequency"] <= upper_bound)]
+    filtered_df = dataset[(dataset["_lowerFrequency"] >= lower_bound) & (dataset["_higherFrequency"] <= upper_bound)]
     st.subheader("You have selected the frequency records from {} to {}".format(lower_frequency, upper_frequency))
     
     frequencies_in_MHz = {
@@ -72,7 +72,7 @@ def getBothBounds(df, start_slider, end_slider):
     fig.update_traces(marker=dict(symbol='square'))
     st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
-def getFrequencySlider(df):
+def getFrequencySlider(dataset):
     st.header("Frequency allocation based on slider")
 
     start_slider, end_slider = st.select_slider(
@@ -82,8 +82,8 @@ def getFrequencySlider(df):
     tabForLowerBounds, tabForUpperBounds, tabForBothBounds = st.tabs(["Lower Bound Frequencies", "Upper Bound Frequencies", "Lower and Upper Frequencies"])
 
     with tabForLowerBounds:
-        getBounds(df, start_slider, end_slider, "_lowerFrequency")
+        getBounds(dataset, start_slider, end_slider, "_lowerFrequency")
     with tabForUpperBounds:
-        getBounds(df, start_slider, end_slider, "_higherFrequency")
+        getBounds(dataset, start_slider, end_slider, "_higherFrequency")
     with tabForBothBounds:
-        getBothBounds(df, start_slider, end_slider)
+        getUpperAndLowerBounds(dataset, start_slider, end_slider)
