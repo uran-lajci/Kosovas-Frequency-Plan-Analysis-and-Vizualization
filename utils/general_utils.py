@@ -1,3 +1,5 @@
+import re
+
 def convertValueUnit(value, unit):
     return str(value) + " " + unit
 
@@ -12,3 +14,10 @@ def convertValues(value):
 def convertValuesAsString(value):
     converted_value, unit = convertValues(value)
     return convertValueUnit(converted_value, unit)
+
+def check_word_in_file(file_path, word):
+    with open(file_path, 'r') as file:
+        file_contents = file.read()
+        if re.search(word, file_contents):
+            return True
+    return False

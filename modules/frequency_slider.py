@@ -1,6 +1,6 @@
-from main_functions.slider_utils import *
-from main_functions.filter_utils import *
-from main_functions.convert_values import *
+from utils.slider_utils import *
+from utils.filter_utils import *
+from utils.general_utils import *
 
 import streamlit as st
 import plotly.express as px

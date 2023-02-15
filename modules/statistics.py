@@ -1,10 +1,11 @@
-from main_functions.slider_utils import *
-from main_functions.filter_utils import *
-from main_functions.convert_values import *
+from utils.slider_utils import *
+from utils.filter_utils import *
+from utils.general_utils import *
+from authentication.login import *
+from authentication.signup import *
 
 import streamlit as st
 import plotly.express as px
-import re
 
 def statistics(dataset):
     with st.form(key='statistics'):
@@ -130,61 +131,12 @@ def statistics(dataset):
                     size_max=60,)
                 st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
-def check_word_in_file(file_path, word):
-    with open(file_path, 'r') as file:
-        file_contents = file.read()
-        if re.search(word, file_contents):
-            return True
-    return False
-
 def getStatistics(df):
     st.header("Statistics for experts")
-
     login, signup = st.tabs(["Login", "Signup"])
 
     with login:
-        login_successful = False
-        st.title("Login Form")
-
-        username = st.text_input("Username", key="username")
-        password = st.text_input("Password", type="password", key="password")
-
-        if not all([username,password]):
-            st.error("Username and password are required fields.")
-        else:
-            file_path = 'usernames_and_passwords.txt'
-            if check_word_in_file(file_path, username + ", Password:") and check_word_in_file(file_path, ": " + password):
-                login_successful = True
-            else:
-                login_successful = False
-
-        if login_successful:
-            st.success("Welcome, {}!".format(username))
+        if isLogedIn() == True:
             statistics(df)
-        else:
-            st.error("Invalid username or password.")
-
     with signup:
-        st.title("Signup Form")
-        username = st.text_input("Username", key="rusername")
-        password = st.text_input("Password", type="password", key="rpassword")
-        password_confirm = st.text_input("Confirm Password", type="password", key="password_confirm")
-        
-        if not all([username,password,password_confirm]):
-            st.error("All fields are required.")
-        elif password != password_confirm:
-            st.error("Passwords do not match.")
-        else:
-            file_path = 'usernames_and_passwords.txt'
-
-            if check_word_in_file(file_path, username) and check_word_in_file(file_path, password):
-                signup_successful = False
-            else:
-                signup_successful = True
-
-            if signup_successful:
-                with open("usernames_and_passwords.txt", "a") as f:
-                    f.write("\nUsername: {}, Password: {}".format(username, password))
-                st.success("Account created for {}!".format(username))
-            else:
-                st.error("Sorry, there was a problem creating the account.")
+        getSignup()

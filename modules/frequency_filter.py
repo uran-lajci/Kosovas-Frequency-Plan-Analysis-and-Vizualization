@@ -1,6 +1,5 @@
-from main_functions.slider_utils import *
-from main_functions.filter_utils import *
-from main_functions.convert_values import *
+from utils.filter_utils import *
+from utils.general_utils import *
 
 import numpy as np
 import streamlit as st
@@ -57,10 +56,10 @@ def getFrequencyFilter(dataset):
 
             graph_container = []
             if graph_orientation == "Horizontal":
-                with open("./css/horizontalStyles.css") as style:
+                with open("./css/horizontal_styles.css") as style:
                     graph_container = [f""" </div><style>{style.read()}</style>"""]
             else:
-                with open("./css/verticalStyles.css") as style:
+                with open("./css/vertical_styles.css") as style:
                     graph_container = [f""" </div> <style>{style.read()}</style>"""]
 
             graph_container.append("<div class='containerSlider'>")
