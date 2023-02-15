@@ -29,6 +29,7 @@ Librarite te cilat duhet ti instaloni para se ta ekzekutoni klasen main jane
 * plotly.express
 * streamlit
 * re
+* hashlib
 * googletrans 4.0.0rc1
 
 Faqja e pare qe na hapet kur te ekzektujme aplikacionin
